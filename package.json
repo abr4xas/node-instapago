@@ -1,0 +1,27 @@
+{
+  "name": "instapago",
+  "version": "0.1.0",
+  "description": "Librería Instapago para Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abr4xas/node-instapago.git"
+  },
+  "keywords": [
+    "instapago",
+    "banesco",
+    "venezuela",
+    "tdc",
+    "tdd",
+    "e-commerce"
+  ],
+  "author": "Jobsamuel Núñez <jobsamuel.nunez@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abr4xas/node-instapago/issues"
+  },
+  "homepage": "https://github.com/abr4xas/node-instapago#readme"
+}
