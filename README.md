@@ -21,6 +21,15 @@
     </a>
 </p>
 ----
-## Uso
+## uso
 
 TODO
+
+
+## documentación
+
+[Documentación de la librería](DOCUMENTACION.md)
+
+## licencia
+
+Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: Jobsamuel Núñez & Angel Cruz
