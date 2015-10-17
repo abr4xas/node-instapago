@@ -1,6 +1,6 @@
 {
   "name": "instapago",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Librería Instapago para Node.js",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,10 @@
     "e-commerce"
   ],
   "author": "Jobsamuel Núñez <jobsamuel.nunez@outlook.com>",
+  "contributors": [{
+    "name": "Ángel",
+    "email": "me@abr4xas.org"
+  }],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/abr4xas/node-instapago/issues"
