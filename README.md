@@ -24,7 +24,7 @@
 ### instalación
 
 ```bash
-$ npm install -g instapago
+$ npm install instapago
 ```
 ### usa de la librería
 
