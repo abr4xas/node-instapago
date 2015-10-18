@@ -44,4 +44,4 @@ var Instapago = require('instapago'),
 Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: Jobsamuel Núñez & Angel Cruz
 
 ### NOTA
-Los logos son propiedad de Instapago y Banesco, respectivamente.
+Los logos son propiedad de Instapago y Banesco respectivamente.
