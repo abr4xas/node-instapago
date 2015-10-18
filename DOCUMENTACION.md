@@ -4,9 +4,13 @@ Bienvenido a la documentación oficial del módulo `instapago`.
 
 ### Tabla de contenido
 
-* [instalación]()
-* [uso del módulo]()
-* [crear pago]()
+* [instalación](#instalación)
+* [uso del módulo](#uso-del-módulo)
+* [crear pago](#crear-pago)
+    * [Parámetros requeridos para crear el pago](#parámetros-requeridos-para-crear-el-pago)
+    * [creación del pago con los valores requeridos](#creación-del-pago-con-los-valores-requeridos)
+    * [Parámetros opcionales para crear el pago](#parámetros-opcionales-para-crear-el-pago)
+    * [Respuesta](#respuesta)
 * [procesar pago]()
 * [eliminar pago]()
 
@@ -50,10 +54,10 @@ var Instapago = require('instapago'),
     pago = new Instapago(keyId, publicKeyId);
 ```
 
-#### crear pago
+### crear pago
 Este método consta del envío de los datos de un pago con tarjeta de crédito a Instapago para su autorización  simplemente llamamos al método `pago.pay({});`
 
-##### Parámetros requeridos para crear el pago
+#### Parámetros requeridos para crear el pago
 * KeyId (Requerido): Llave generada desde Instapago.
 * PublicKeyId (Requerido): Llave compartida Enviada por correo al crear una cuenta
 en instapago.
@@ -96,7 +100,7 @@ pago.pay({
 });
 ```
 
-##### Parámetros opcionales para crear el pago
+#### Parámetros opcionales para crear el pago
 * OrderNumber (Opcional): Numero de orden del pago según el comercio.
 * Address (Opcional): Dirección asociada a la tarjeta, Utilizada por algunos bancos
 para mayor seguridad.
@@ -133,7 +137,7 @@ pago.pay({
 });
 ```
 
-##### respuesta
+#### Respuesta
 
 De realizar el procedimiento de forma correcta vamos a obtener un resultado como el siguiente:
 

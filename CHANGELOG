@@ -1,9 +1,10 @@
-* [31mf7439ba[m - [32mabr4xas[m - [33m (HEAD -> master, origin/master, origin/HEAD)[m fix typo DOCUMENTACION [32m(60 seconds ago)[m
-* [31ma5279ec[m - [32mabr4xas[m - [33m[m actualizando README y DOCUMENTACION [32m(2 minutes ago)[m
-* [31mde87d1d[m - [32mabr4xas[m - [33m[m actualizando documentacion [32m(3 minutes ago)[m
-* [31mc76cab3[m - [32mabr4xas[m - [33m[m actualizando quick start del readme [32m(8 minutes ago)[m
-* [31m4652a6f[m - [32mJobsamuel Núñez[m - [33m[m v0.2.2 [32m(76 minutes ago)[m
-* [31m41df95d[m - [32mJobsamuel Núñez[m - [33m[m Mejor validación de parámetros y manejo de errores [32m(77 minutes ago)[m
+* [31md1cc631[m - [32mabr4xas[m - [33m (HEAD -> master, origin/master, origin/HEAD)[m fix typo DOCUMENTACION [32m(6 minutes ago)[m
+* [31mf7439ba[m - [32mabr4xas[m - [33m[m fix typo DOCUMENTACION [32m(7 minutes ago)[m
+* [31ma5279ec[m - [32mabr4xas[m - [33m[m actualizando README y DOCUMENTACION [32m(8 minutes ago)[m
+* [31mde87d1d[m - [32mabr4xas[m - [33m[m actualizando documentacion [32m(8 minutes ago)[m
+* [31mc76cab3[m - [32mabr4xas[m - [33m[m actualizando quick start del readme [32m(14 minutes ago)[m
+* [31m4652a6f[m - [32mJobsamuel Núñez[m - [33m[m v0.2.2 [32m(82 minutes ago)[m
+* [31m41df95d[m - [32mJobsamuel Núñez[m - [33m[m Mejor validación de parámetros y manejo de errores [32m(83 minutes ago)[m
 * [31m59aa46d[m - [32mJobsamuel Núñez[m - [33m[m Se eliminó espacio innecesario [32m(2 hours ago)[m
 * [31mad9558b[m - [32mJobsamuel Núñez[m - [33m[m Ejemplo y pequeños cambios de estilo [32m(3 hours ago)[m
 * [31mbf59a6d[m - [32mabr4xas[m - [33m[m actualizado readme segun #1 [32m(16 hours ago)[m
@@ -24,7 +25,7 @@
 * | [31m2363c9e[m - [32mabr4xas[m - [33m[m Actualizando README [32m(17 hours ago)[m
 * | [31m96b5966[m - [32mabr4xas[m - [33m[m actualizando archivos DOCUMENTACION y README [32m(17 hours ago)[m
 |/  
-* [31mf0a5363[m - [32mJobsamuel Núñez[m - [33m[m Instapago ALPHA :zap: [32m(24 hours ago)[m
+* [31mf0a5363[m - [32mJobsamuel Núñez[m - [33m[m Instapago ALPHA :zap: [32m(25 hours ago)[m
 *   [31m07e52fb[m - [32mJobsamuel Núñez[m - [33m[m Merge branch 'master' of github.com:abr4xas/node-instapago [32m(25 hours ago)[m
 |\  
 | * [31m30072db[m - [32mabr4xas[m - [33m[m agregada documentacion y actualizacion del README [32m(26 hours ago)[m
