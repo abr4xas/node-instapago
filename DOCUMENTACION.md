@@ -13,6 +13,7 @@ Bienvenido a la documentación oficial del módulo `instapago`.
     * [Respuesta](#respuesta)
 * [procesar pago]()
 * [eliminar pago]()
+* [Ejemplo de voucher](#ejemplo-de-voucher)
 
 ### instalación
 
@@ -162,3 +163,5 @@ De realizar el procedimiento de forma correcta vamos a obtener un resultado como
 TODO
 #### eliminar pago
 TODO
+### Ejemplo de voucher
+![voucher](http://i.imgur.com/sE05jmH.png)
