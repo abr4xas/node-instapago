@@ -1,21 +1,22 @@
-* [31m90ba5cf[m - [32mabr4xas[m - [33m (HEAD -> master, origin/master, origin/HEAD)[m actualizando repo [32m(5 minutes ago)[m
-* [31m720b296[m - [32mabr4xas[m - [33m[m actualizando readme [32m(5 minutes ago)[m
-* [31m5f5e12a[m - [32mabr4xas[m - [33m[m actualizando la documentacion [32m(5 minutes ago)[m
-* [31m5d2432a[m - [32mabr4xas[m - [33m[m actualizando instrucion para la instalacion del modulo [32m(34 minutes ago)[m
-* [31m2932c98[m - [32mabr4xas[m - [33m[m actualizando README [32m(37 minutes ago)[m
-* [31mac56dae[m - [32mabr4xas[m - [33m[m Actualizando repo [32m(39 minutes ago)[m
-* [31m15f6bba[m - [32mabr4xas[m - [33m[m actualizando DOCUMENTACION [32m(40 minutes ago)[m
-* [31m6b07b6c[m - [32mabr4xas[m - [33m[m actualizando README [32m(40 minutes ago)[m
-*   [31me7dec1f[m - [32mabr4xas[m - [33m[m Merge branch 'master' of github.com:abr4xas/node-instapago [32m(41 minutes ago)[m
+* [31m337c768[m - [32mabr4xas[m - [33m (HEAD -> master, origin/master, origin/HEAD)[m actualizado readme [32m(3 minutes ago)[m
+* [31m90ba5cf[m - [32mabr4xas[m - [33m[m actualizando repo [32m(8 minutes ago)[m
+* [31m720b296[m - [32mabr4xas[m - [33m[m actualizando readme [32m(8 minutes ago)[m
+* [31m5f5e12a[m - [32mabr4xas[m - [33m[m actualizando la documentacion [32m(8 minutes ago)[m
+* [31m5d2432a[m - [32mabr4xas[m - [33m[m actualizando instrucion para la instalacion del modulo [32m(37 minutes ago)[m
+* [31m2932c98[m - [32mabr4xas[m - [33m[m actualizando README [32m(40 minutes ago)[m
+* [31mac56dae[m - [32mabr4xas[m - [33m[m Actualizando repo [32m(42 minutes ago)[m
+* [31m15f6bba[m - [32mabr4xas[m - [33m[m actualizando DOCUMENTACION [32m(43 minutes ago)[m
+* [31m6b07b6c[m - [32mabr4xas[m - [33m[m actualizando README [32m(43 minutes ago)[m
+*   [31me7dec1f[m - [32mabr4xas[m - [33m[m Merge branch 'master' of github.com:abr4xas/node-instapago [32m(44 minutes ago)[m
 |\  
 | * [31m000f960[m - [32mJobsamuel Núñez[m - [33m[m v0.2.1 [32m(4 hours ago)[m
-| * [31m196dab2[m - [32mJobsamuel Núñez[m - [33m[m Petición apropiada al API de Instapago :bug: [32m(4 hours ago)[m
+| * [31m196dab2[m - [32mJobsamuel Núñez[m - [33m[m Petición apropiada al API de Instapago :bug: [32m(5 hours ago)[m
 | * [31m4f5969d[m - [32mJobsamuel Núñez[m - [33m[m Pequeños cambios [32m(8 hours ago)[m
-* | [31m2363c9e[m - [32mabr4xas[m - [33m[m Actualizando README [32m(42 minutes ago)[m
-* | [31m96b5966[m - [32mabr4xas[m - [33m[m actualizando archivos DOCUMENTACION y README [32m(46 minutes ago)[m
+* | [31m2363c9e[m - [32mabr4xas[m - [33m[m Actualizando README [32m(45 minutes ago)[m
+* | [31m96b5966[m - [32mabr4xas[m - [33m[m actualizando archivos DOCUMENTACION y README [32m(49 minutes ago)[m
 |/  
 * [31mf0a5363[m - [32mJobsamuel Núñez[m - [33m[m Instapago ALPHA :zap: [32m(8 hours ago)[m
-*   [31m07e52fb[m - [32mJobsamuel Núñez[m - [33m[m Merge branch 'master' of github.com:abr4xas/node-instapago [32m(8 hours ago)[m
+*   [31m07e52fb[m - [32mJobsamuel Núñez[m - [33m[m Merge branch 'master' of github.com:abr4xas/node-instapago [32m(9 hours ago)[m
 |\  
 | * [31m30072db[m - [32mabr4xas[m - [33m[m agregada documentacion y actualizacion del README [32m(10 hours ago)[m
 | * [31ma7964c2[m - [32mabr4xas[m - [33m[m Actualizado README [32m(10 hours ago)[m

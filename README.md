@@ -1,7 +1,7 @@
 <p align="center">
     <img alt="node-instapago" src="http://i.imgur.com/hYNsH6B.jpg" width="auto">
 </p>
-<p align="center" style="color:#707070;">
+<p align="center">
     Librería Instapago para Node.js
 </p>
 <p align="center">
