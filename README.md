@@ -81,7 +81,6 @@ La respuestá será así:
 }
 ```
 
-
 ## documentación
 * [Documentación de la líbreria Instapago](DOCUMENTACION.md)
 
