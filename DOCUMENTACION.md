@@ -71,6 +71,8 @@ en la misma MM/YYYY. Por Ejemplo: 10/2014.
     * "1": Retener (pre-autorización).
     * "2": Pagar (autorización).
 * IP (Requerido): Dirección IP del cliente.
+
+
 > NOTA: Debe tener en cuenta la opción `StatusId` es muy importante determinar cual de las opciones es necesaria para la aplicación.
 
 #### creación del pago con los valores requeridos
