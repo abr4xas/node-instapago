@@ -14,6 +14,7 @@ Bienvenido a la documentación oficial del módulo `instapago`.
 * [procesar pago]()
 * [eliminar pago]()
 * [Ejemplo de voucher](#ejemplo-de-voucher)
+* [Códigos de respuesta](#códigos-de-respuesta)
 
 ### instalación
 
@@ -163,5 +164,19 @@ De realizar el procedimiento de forma correcta vamos a obtener un resultado como
 TODO
 #### eliminar pago
 TODO
-### Ejemplo de voucher
+#### Ejemplo de voucher
 ![voucher](http://i.imgur.com/sE05jmH.png)
+#### Códigos de respuesta
+
+Para todas las transacciones realizadas bajo el API de Instapago, los códigos HTTP de respuestas corresponden a los siguientes estados:
+
+* ```201```: Pago procesado con éxito.
+* ```400```: Error al validar los datos enviados (Adicionalmente se devuelve una cadena de
+caracteres con la descripción del error).
+* ```401```: Error de autenticación, ha ocurrido un error con las llaves utilizadas.
+* ```403```: Pago Rechazado por el banco.
+* ```500```: Ha Ocurrido un error interno dentro del servidor.
+* ```503```: Ha Ocurrido un error al procesar los parámetros de entrada. Revise los datos
+enviados y vuelva a intentarlo.
+
+> **Importante**: Si recibe un código de respuesta diferente a los antes descritos deben ser tomados como errores de protocolo HTTP.
