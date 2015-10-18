@@ -48,37 +48,13 @@ pago.pay({
     cvc: '123',
     expiration_date: '10/2017',
     status_id: '2',
-    ip: '127.0.0.1',
-    order_number: '123456',
-    address: 'calle 1, avenida 2, casa 3',
-    city: 'Maracaibo',
-    zip_code: '4002',
-    state: 'Zulia'
+    ip: '127.0.0.1'
 }, function(err, respuesta) {
     if (err) {
         // haz algo con el error.
     }
     // haz algo con la respuesta.
 });
-```
-
-La respuestá será así:
-
-```json
-{
-    "success": true,
-    "message": "Pago Aprobado",
-    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
-    "code": "201",
-    "reference": "123456",
-    "voucher": "<HTML del voucher>",
-    "ordernumber": "123456",
-    "sequence": "123456",
-    "approval": "123456",
-    "lote": "123456",
-    "responsecode": "00",
-    "deferred": false
-}
 ```
 
 ## documentación
