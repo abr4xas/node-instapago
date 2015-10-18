@@ -23,13 +23,28 @@
 ----
 ## uso
 
-TODO
+### instalación
 
+```bash
+$ npm install -g instapago
+```
+### usa de la librería
+
+```
+var Instapago = require('instapago'),
+    key = '',
+    publicKey = '',
+    pago = new Instapago(key, publicKey);
+```
+> Debe solicitar las llaves (`key`,`publicKey`) en la página de instapago. Para mayor información clic [aquí](https://github.com/abr4xas/node-instapago/blob/master/DOCUMENTACION.md#requerimientos)
 
 ## documentación
 
-[Documentación de la librería](DOCUMENTACION.md)
+[Documentación de la API de Instapago](DOCUMENTACION.md)
 
 ## licencia
 
 Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: Jobsamuel Núñez & Angel Cruz
+
+### NOTA
+Los logos son propiedad de Instapago y Banesco, respectivamente.
