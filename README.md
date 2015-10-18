@@ -34,7 +34,7 @@ var Instapago = require('instapago'),
     publicKey = '',
     pago = new Instapago(key, publicKey);
 ```
-> Debe solicitar las llaves (`key`,`publicKey`) en la página de instapago. Para mayor información clic [aquí](https://github.com/abr4xas/node-instapago/blob/master/DOCUMENTACION.md#requerimientos)
+> Debe solicitar las llaves (`key`,`publicKey`) en la página de instapago. Para mayor información clic [aquí](http://instapago.com/wp-content/uploads/2015/04/Guia-Integracion-API-Instapago-1.5.4.pdf)
 
 ## documentación
 * [Documentación de la líbreria "instapago"](DOCUMENTACION.md)
