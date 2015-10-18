@@ -26,15 +26,6 @@
 ```bash
 $ npm install instapago
 ```
-### usa de la librería
-
-```javascript
-var Instapago = require('instapago'),
-    key = '',
-    publicKey = '',
-    pago = new Instapago(key, publicKey);
-```
-> Debe solicitar las llaves (`key`,`publicKey`) en la página de instapago. Para mayor información clic [aquí](http://instapago.com/wp-content/uploads/2015/04/Guia-Integracion-API-Instapago-1.5.4.pdf)
 
 ## documentación
 * [Documentación de la líbreria "instapago"](DOCUMENTACION.md)
