@@ -30,15 +30,8 @@ $ npm install instapago
 
 ```js
 var Instapago = require('instapago');
+var pago = new Instapago('<LLAVE-PRIVADA>', '<LLAVE-PÚBLICA>');
 
-// Llaves de acceso al API de Instapago.
-var keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-GENERADA-POR-INSTAPAGO>';
-var publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
-
-// Nueva instancia de Instapago.
-var pago = new Instapago(keyId, publicKeyId);
-
-// Efectuar un nuevo pago.
 pago.pay({
     amount: '500',
     description: 'Probando el módulo Instapago',
@@ -58,7 +51,7 @@ pago.pay({
 ```
 
 ## documentación
-* [Documentación de la líbreria Instapago](DOCUMENTACION.md)
+* [Documentación de la librería Instapago](DOCUMENTACION.md)
 
 ## licencia
 
