@@ -28,7 +28,7 @@ $ npm install instapago
 ```
 ### usa de la librería
 
-```
+```javascript
 var Instapago = require('instapago'),
     key = '',
     publicKey = '',
