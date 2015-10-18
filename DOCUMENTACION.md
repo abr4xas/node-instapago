@@ -31,8 +31,8 @@ var Instapago = require('instapago');
 ```
 * incluir las llaves de acceso al API de instapago
 ```javascript
-var key = '';
-var publicKey = '';
+var keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-GENERADA-POR-INSTAPAGO>';
+var publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
 ```
 > Debe solicitar las llaves (`key`,`publicKey`) en la página de instapago. Para mayor información clic [aquí](http://instapago.com/wp-content/uploads/2015/04/Guia-Integracion-API-Instapago-1.5.4.pdf)
 
@@ -45,13 +45,113 @@ Tambien podemos hacerlo de la siguiente forma:
 
 ```javascript
 var Instapago = require('instapago'),
-    key = '',
-    publicKey = '',
-    pago = new Instapago(key, publicKey);
+    keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-GENERADA-POR-INSTAPAGO>',
+    publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>',
+    pago = new Instapago(keyId, publicKeyId);
 ```
 
 #### crear pago
-TODO
+Este método consta del envío de los datos de un pago con tarjeta de crédito a Instapago para su autorización  simplemente llamamos al método `pago.pay({});`
+
+##### Parámetros requeridos para crear el pago
+* KeyId (Requerido): Llave generada desde Instapago.
+* PublicKeyId (Requerido): Llave compartida Enviada por correo al crear una cuenta
+en instapago.
+* Amount (Requerido): Monto a Debitar, utilizando punto “.” Como separador decimal.
+Por ejemplo: 200.00.
+* Description (Requerido): Cadena de caracteres con la descripción de la operación.
+* CardHolder (Requerido): Nombre del Tarjeta habiente.
+* CardHolderID (Requerido): Cédula o RIF del Tarjeta habiente.
+* CardNumber (Requerido): Numero de la tarjeta de crédito, sin espacios ni
+separadores.
+* CVC (Requerido): Código secreto de la Tarjeta de crédito.
+* ExpirationDate (Requerido): Fecha de expiración de la tarjeta en el formato mostrado
+en la misma MM/YYYY. Por Ejemplo: 10/2014.
+* StatusId (Requerido): Estatus en el que se creará la transacción.
+    * "1": Retener (pre-autorización).
+    * "2": Pagar (autorización).
+* IP (Requerido): Dirección IP del cliente.
+> NOTA: Debe tener en cuenta la opción `StatusId` es muy importante determinar cual de las opciones es necesaria para la aplicación.
+
+#### creación del pago con los valores requeridos
+
+```javascript
+pago.pay({
+    amount: '500',
+    description: 'Probando el módulo Instapago',
+    card_holder: 'Nombre Apellido',
+    card_holder_id: '12345678',
+    card_number: '4111111111111111',
+    cvc: '123',
+    expiration_date: '10/2017',
+    status_id: '2',
+    ip: '127.0.0.1'
+}, function(err, respuesta) {
+    if (err) {
+        // haz algo con el error.
+    }
+    // haz algo con la respuesta.
+});
+```
+
+##### Parámetros opcionales para crear el pago
+* OrderNumber (Opcional): Numero de orden del pago según el comercio.
+* Address (Opcional): Dirección asociada a la tarjeta, Utilizada por algunos bancos
+para mayor seguridad.
+* City (Opcional): Ciudad asociada a la tarjeta, Utilizada por algunos bancos para
+mayor seguridad.
+* ZipCode (Opcional): Código Postal asociada a la tarjeta, Utilizada por algunos
+bancos para mayor seguridad.
+* State (Opcional): Estado o provincia asociada a la tarjeta, Utilizada por algunos
+bancos para mayor seguridad.
+
+#### creación del pago con los valores opcionales
+
+```javascript
+pago.pay({
+    amount: '500',
+    description: 'Probando el módulo Instapago',
+    card_holder: 'Nombre Apellido',
+    card_holder_id: '12345678',
+    card_number: '4111111111111111',
+    cvc: '123',
+    expiration_date: '10/2017',
+    status_id: '2',
+    ip: '127.0.0.1',
+    order_number: '123456',
+    address: 'calle 1, avenida 2, casa 3',
+    city: 'Maracaibo',
+    zip_code: '4002',
+    state: 'Zulia'
+}, function(err, respuesta) {
+    if (err) {
+        // haz algo con el error.
+    }
+    // haz algo con la respuesta.
+});
+```
+
+##### respuesta
+
+De realizar el procedimiento de forma correcta vamos a obtener un resultado como el siguiente:
+
+```json
+{
+    "success": true,
+    "message": "Pago Aprobado",
+    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+    "code": "201",
+    "reference": "123456",
+    "voucher": "<HTML del voucher>",
+    "ordernumber": "123456",
+    "sequence": "123456",
+    "approval": "123456",
+    "lote": "123456",
+    "responsecode": "00",
+    "deferred": false
+}
+```
+
 #### procesar pago
 TODO
 #### eliminar pago
