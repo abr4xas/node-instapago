@@ -44,16 +44,16 @@ var publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
 
 * creamos la instancia
 ```javascript
-    var pago = new Instapago(key, publicKey);
+var pago = new Instapago(key, publicKey);
 ```
 
 Tambien podemos hacerlo de la siguiente forma:
 
 ```javascript
-var Instapago = require('instapago'),
-    keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-GENERADA-POR-INSTAPAGO>',
-    publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>',
-    pago = new Instapago(keyId, publicKeyId);
+var Instapago = require('instapago');
+var keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-GENERADA-POR-INSTAPAGO>';
+var publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
+var pago = new Instapago(keyId, publicKeyId);
 ```
 
 ### crear pago
