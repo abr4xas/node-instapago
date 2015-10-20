@@ -10,9 +10,7 @@ function Instapago(keyId, publicKeyId) {
 		const message = 'Los parámetros "keyId" y "publicKeyId" deben ser String.';
 		throw new Error(message);
 	}
-
-	this._paymentEndpoint = 'payment';
-	this._completeEndpoint = 'complete';
+	
 	this._keys = {
 		key_id: keyId,
 		public_key_id: publicKeyId
@@ -67,7 +65,7 @@ function check(obj, callback) {
 }
 
 Instapago.prototype.pay = function(config, callback) {
-	const endpoint = this._paymentEndpoint;
+	const endpoint = 'payment';
 	const method = 'POST';
 
 	check(config, (param) => {
@@ -81,7 +79,7 @@ Instapago.prototype.pay = function(config, callback) {
 }
 
 Instapago.prototype.continuePayment = function(config, callback) {
-	const endpoint = this._completeEndpoint;
+	const endpoint = 'complete';
 	const method = 'POST';
 
 	if (config && (!config.id || !config.amount)) {
@@ -93,7 +91,7 @@ Instapago.prototype.continuePayment = function(config, callback) {
 }
 
 Instapago.prototype.cancelPayment = function(config, callback) {
-	const endpoint = this._paymentEndpoint;
+	const endpoint = 'payment';
 	const method = 'DELETE';
 
 	if (config && !config.id) {
@@ -105,7 +103,7 @@ Instapago.prototype.cancelPayment = function(config, callback) {
 }
 
 Instapago.prototype.paymentInfo = function(config, callback) {
-	const endpoint = this._paymentEndpoint;
+	const endpoint = 'payment';
 	const method = 'GET';
 
 	if (config && !config.id) {
