@@ -1,23 +1,21 @@
 'use strict';
 
-var callInstapago = require('./lib/call-instapago');
+const callInstapago = require('./lib/call-instapago');
 
 function Instapago(keyId, publicKeyId) {
 	if (!keyId || !publicKeyId) {
-		var message = 'Los parámetros "keyId" y "publicKeyId" son requeridos para procesar la petición.';
+		const message = 'Los parámetros "keyId" y "publicKeyId" son requeridos para procesar la petición.';
 		throw new Error(message);
 	} else if (typeof keyId !== 'string' || typeof publicKeyId !== 'string') {
-		var message = 'Los parámetros "keyId" y "publicKeyId" deben ser String.';
+		const message = 'Los parámetros "keyId" y "publicKeyId" deben ser String.';
 		throw new Error(message);
 	}
 
 	this._paymentEndpoint = 'payment';
 	this._completeEndpoint = 'complete';
-	this._publicKeyId = publicKeyId;
-	this._keyId = keyId;
 	this._keys = {
-		key_id: this._keyId,
-		public_key_id: this._publicKeyId
+		key_id: keyId,
+		public_key_id: publicKeyId
 	};
 }
 
@@ -43,7 +41,7 @@ function process(keys, options, config, callback) {
 }
 
 function check(obj, callback) {
-    var requiredParams = [
+    const requiredParams = [
         'amount', 
         'description', 
         'card_holder', 
@@ -54,7 +52,7 @@ function check(obj, callback) {
         'status_id', 
         'ip'
     ];
-    var missedParam;
+    let missedParam;
 
     requiredParams.some(function(param) {
         if (!obj.hasOwnProperty(param)) {
@@ -69,62 +67,53 @@ function check(obj, callback) {
 }
 
 Instapago.prototype.pay = function(config, callback) {
-	var _this = this;
-	var options = {
-		endpoint: _this._paymentEndpoint,
-		method: 'POST'
-	};
+	const endpoint = this._paymentEndpoint;
+	const method = 'POST';
 
-	check(config, function(param) {
+	check(config, (param) => {
         if (param) {
-            var err = new Error('El parámetro "' + param + '" es requerido para procesar la petición.');
+            const err = new Error(`El parámetro ${param} es requerido para procesar la petición.`);
             return callback(err);
         }
 
-        process(_this._keys, options, config, callback);
+        process(this._keys, { endpoint, method }, config, callback);
     });
 }
 
 Instapago.prototype.continuePayment = function(config, callback) {
-	var options = {
-		endpoint: this._completeEndpoint,
-		method: 'POST'
-	};
+	const endpoint = this._completeEndpoint;
+	const method = 'POST';
 
 	if (config && (!config.id || !config.amount)) {
-		var err = new Error('Los parámetros "id" y "amount" son requeridos para procesar la petición.');
+		const err = new Error('Los parámetros "id" y "amount" son requeridos para procesar la petición.');
 		return callback(err);
 	};
 
-	process(this._keys, options, config, callback);
+	process(this._keys, { endpoint, method }, config, callback);
 }
 
 Instapago.prototype.cancelPayment = function(config, callback) {
-	var options = {
-		endpoint: this._paymentEndpoint,
-		method: 'DELETE'
-	};
+	const endpoint = this._paymentEndpoint;
+	const method = 'DELETE';
 
 	if (config && !config.id) {
-		var err = new Error('El parámetro "id" es requerido para procesar la petición.');
+		const err = new Error('El parámetro "id" es requerido para procesar la petición.');
 		return callback(err);
 	};
 
-	process(this._keys, options, config, callback);
+	process(this._keys, { endpoint, method }, config, callback);
 }
 
 Instapago.prototype.paymentInfo = function(config, callback) {
-	var options = {
-		endpoint: this._paymentEndpoint,
-		method: 'GET'
-	};
+	const endpoint = this._paymentEndpoint;
+	const method = 'GET';
 
 	if (config && !config.id) {
-		var err = new Error('El parámetro "id" es requerido para procesar la petición.');
+		const err = new Error('El parámetro "id" es requerido para procesar la petición.');
 		return callback(err);
 	};
 
-	process(this._keys, options, config, callback);
+	process(this._keys, { endpoint, method }, config, callback);
 }
 
 module.exports = Instapago;

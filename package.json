@@ -1,6 +1,6 @@
 {
   "name": "instapago",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Librería Instapago para Node.js",
   "main": "index.js",
   "scripts": {
@@ -32,5 +32,8 @@
   "homepage": "https://github.com/abr4xas/node-instapago#readme",
   "dependencies": {
     "request": "^2.65.0"
+  },
+  "engines" : { 
+    "node" : ">=4.2.1" 
   }
 }
