@@ -19,7 +19,7 @@
     </a>
 </p>
 <p align="center">
-    <sup style="color: #d0d0d0;">**NOTA** Los logos son propiedad de Instapago y Banesco, respectivamente.</sup>
+    <sup style="color: #d0d0d0;"><b>NOTA</b> Los logos son propiedad de Instapago y Banesco, respectivamente.</sup>
 </p>
 
 ----
