@@ -11,13 +11,13 @@
 
 ### Cambiado
 
-* Se simplificó el contenido de `README.md`.
+* Se simplificó el contenido de `README.md`. Asimismo, se actualizó el ejemplo a ES6.
 
 ### Removido
 
 * Se eliminó el archivo `CHANGELOG`.
 
-### Obsotelo
+### Obsoleto
 
 * Compatibilidad con versiones de Node inferiores a **v4.0.0**.
 
