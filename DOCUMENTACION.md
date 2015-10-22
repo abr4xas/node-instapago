@@ -7,15 +7,16 @@ Bienvenido a la documentación del módulo **Instapago**.
 * [instalación](#instalación)
 * [uso del módulo](#uso-del-módulo)
 * [métodos del API](#métodos-del-api)
-    * [crear pago](#crear-pago)
+    * [crear pago](#crear-pago-payconfig-callback)
         * [parámetros requeridos para crear el pago](#parámetros-requeridos-para-crear-el-pago)
         * [parámetros opcionales para crear el pago](#parámetros-opcionales-para-crear-el-pago)
         * [ejemplo](#ejemplo)
-    * [procesar pago]()
-    * [eliminar pago]()
-    * [información del pago]()
+    * [procesar pago](#procesar-pago-completepaymentconfig-callback)
+    * [eliminar pago](#eliminar-pago-cancelpaymentconfig-callback)
+    * [información del pago](#información-del-pago-paymentinfoconfig-callback)
 * [ejemplo de voucher](#ejemplo-de-voucher)
 * [códigos de respuesta](#códigos-de-respuesta)
+* [licencia](#licencia)
 
 ## instalación
 
@@ -55,7 +56,7 @@ pago.pay({
     // hacer algo con la respuesta.
 });
 ```
-> **Importante**: Se debe solicitar las llaves `keyId` y `publicKeyId` en la página de Instapago. [Aquí](http://instapago.com/wp-content/uploads/2015/04/Guia-Integracion-API-Instapago-1.5.4.pdf) puedes encontrar mayor información.
+> **Importante**: Se debe solicitar las llaves `keyId` y `publicKeyId` en la página de Instapago. [Aquí](http://instapago.com/wp-content/uploads/2015/10/Guia-Integracion-API-Instapago-1.6.pdf) puedes encontrar mayor información.
 Además, se recomienda definirlas como variables de entorno para mayor seguridad.
 
 ## métodos del API
