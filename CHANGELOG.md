@@ -7,7 +7,7 @@
 ### Nuevo
 
 * Se reescribió el código a Javascript ES2015 (ES6).
-* Éste documento, así como `AUTHORS.md` y `CONTRIBUTING.md`.
+* Éste documento, así como `AUTORES.md` y `CONTRIBUCION.md`.
 
 ### Cambiado
 
@@ -29,7 +29,7 @@
 
 ### Cambiado
 
-* Se mejoró el contenido de `DOCUMENTATION.md`.
+* Se mejoró el contenido de `DOCUMENTACION.md`.
 * Se agregó en `README.md` un ejemplo de uso y una *nota* sobre la propiedad de los logos.
 
 ### Reparado
@@ -41,5 +41,5 @@
 ### Nuevo
 
 * Métodos `pay`, `continuePayment`, `cancelPayment`, `paymentInfo`.
-* `DOCUMENTATION.md`
+* `DOCUMENTACION.md`
 * `README.md`

@@ -58,9 +58,9 @@ pago.pay({
 
 * [Documentación de la librería Instapago](DOCUMENTACION.md)
 * [Registro de cambios](CHANGELOG.md)
-* [Colaboración](CONTRIBUTING.md)
-* [Autores](AUTHORS.md)
+* [Colaboración](CONTRIBUCION.md)
+* [Autores](AUTORES.md)
 
 ## licencia
 
-Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2015 [Autores de la librería](AUTHORS.md)
+Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2015 [Autores de la librería](AUTORES.md)
