@@ -108,7 +108,7 @@ const publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
 const pago = new Instapago(key, publicKey);
 
 pago.pay({
-    amount: 17800,
+    amount: 37800,
     description: 'Calzados de tacón alto',
     card_holder: 'Mónica Márquez',
     card_holder_id: 12345678,
@@ -120,7 +120,7 @@ pago.pay({
     order_number: 123456,
     address: 'calle 1, edificio 2, apartamento 3',
     city: 'Maracaibo',
-    zip_code: '4002',
+    zip_code: 4002,
     state: 'Zulia'
 }, function(err, respuesta) {
     if (err) {
