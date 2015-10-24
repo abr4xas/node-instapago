@@ -2,24 +2,21 @@
 
 > Todos los cambios significativos en la librería serán registrados en éste documento.
 
-## 0.3.0 - [En proceso](https://github.com/abr4xas/node-instapago/compare/master...dev)
+## [0.3.0](https://github.com/abr4xas/node-instapago/tree/v0.3.0) - 2015-10-24
 
 ### Nuevo
 
 * Se reescribió el código a Javascript ES2015 (ES6).
-* Éste documento, así como `AUTORES.md` y `CONTRIBUCION.md`.
+* Éste documento, así como `AUTORES.md`, `CONTRIBUCION.md` y `.npmignore`.
 
 ### Cambiado
 
 * Se simplificó el contenido de `README.md`. Asimismo, se actualizó el ejemplo a ES6.
+* Se actualizó el contenido de `DOCUMENTACION.md`.
 
 ### Removido
 
 * Se eliminó el archivo `CHANGELOG`.
-
-### Obsoleto
-
-* Compatibilidad con versiones de Node inferiores a **v4.0.0**.
 
 ## [0.2.3](https://github.com/abr4xas/node-instapago/tree/v0.2.3) - 2015-10-18
 
