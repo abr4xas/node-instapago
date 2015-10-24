@@ -11,7 +11,7 @@ Bienvenido a la documentación del módulo **Instapago**.
         * [parámetros requeridos para crear el pago](#parámetros-requeridos-para-crear-el-pago)
         * [parámetros opcionales para crear el pago](#parámetros-opcionales-para-crear-el-pago)
         * [ejemplo](#ejemplo)
-    * [procesar pago](#procesar-pago-completepaymentconfig-callback)
+    * [continuar pago](#continuar-pago-completepaymentconfig-callback)
     * [eliminar pago](#eliminar-pago-cancelpaymentconfig-callback)
     * [información del pago](#información-del-pago-paymentinfoconfig-callback)
 * [ejemplo de voucher](#ejemplo-de-voucher)
@@ -65,6 +65,8 @@ A continuación se describen los métodos disponibles en la librería Instapago.
 ### crear pago `pay(config, callback)`
 
 Efectúa un pago con tarjeta de crédito, una vez procesado retornar una respuesta.
+
+#### argumentos
 
 `config` Objeto con los parámetros requeridos para efectuar un pago.
 
@@ -128,7 +130,7 @@ pago.pay({
     console.log(respuesta);
 });
 ```
-Una vez procesada la operación satisfactoriamente, se va a obtener un resultado como el siguiente:
+Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
 
 ```json
 {
@@ -147,17 +149,151 @@ Una vez procesada la operación satisfactoriamente, se va a obtener un resultado
 }
 ```
 
-### procesar pago `completePayment(config, callback)`
+### continuar pago `completePayment(config, callback)`
 
-TODO
+Continúa un pago **Retenido** o **Pre-Aprobado**, una vez procesado retornar una respuesta.
+
+#### argumentos
+
+`config` Objeto con los parámetros requeridos para continuar un pago:
+
+* `amount` Monto a Debitar, utilizando punto (.) como separador decimal. Por ejemplo: 200.00
+* `id` Identificador único del pago que se desea continuar.
+
+`callback` Función que será llamada una vez procesado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
+
+#### Ejemplo
+
+Ejemplo.js
+
+```js
+// ...
+
+pago.continuePayment({
+    amount: 37800,
+    id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
+}, function(err, respuesta) {
+    if (err) {
+        return console.log(err);
+    }
+    
+    console.log(respuesta);
+});
+```
+Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+
+```json
+{
+    "success": true,
+    "message": "Pago Completado",
+    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+    "code": "201",
+    "reference": "123456",
+    "voucher": "<HTML del voucher>",
+    "ordernumber": "123456",
+    "sequence": "123456",
+    "approval": "123456",
+    "lote": "123456",
+    "responsecode": "00",
+    "deferred": false
+}
+```
 
 ### eliminar pago `cancelPayment(config, callback)`
 
-TODO
+Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Una vez procesada la operación, retornar una respuesta.
+
+#### argumentos
+
+`config` Objeto con los parámetros requeridos para anular un pago:
+
+* `id` Identificador único del pago que se desea anular.
+
+`callback` Función que será llamada una vez anulado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
+
+#### Ejemplo
+
+Ejemplo.js
+
+```js
+// ...
+
+pago.cancelPayment({
+    id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
+}, function(err, respuesta) {
+    if (err) {
+        return console.log(err);
+    }
+    
+    console.log(respuesta);
+});
+```
+Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+
+```json
+{
+    "success": true,
+    "message": "Pago Anulado",
+    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+    "code": "201",
+    "reference": "123456",
+    "voucher": "<HTML del voucher>",
+    "ordernumber": "123456",
+    "sequence": "123456",
+    "approval": "123456",
+    "lote": "123456",
+    "responsecode": "00",
+    "deferred": false
+}
+```
 
 ### información del pago `paymentInfo(config, callback)`
 
-TODO
+Consulta información sobre un pago generado anteriormente.
+
+#### argumentos
+
+`config` Objeto con los parámetros requeridos para consultar información sobre un pago:
+
+* `id` Identificador único del pago que se desea consultar.
+
+`callback` Función que será llamada una vez consultado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
+
+#### Ejemplo
+
+Ejemplo.js
+
+```js
+// ...
+
+pago.paymentInfo({
+    id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
+}, function(err, respuesta) {
+    if (err) {
+        return console.log(err);
+    }
+    
+    console.log(respuesta);
+});
+```
+Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+
+```json
+{
+    "success": true,
+    "message": "Pre-autorizada",
+    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+    "code": "201",
+    "reference": "123456",
+    "voucher": "<HTML del voucher>",
+    "ordernumber": "123456",
+    "sequence": "123456",
+    "approval": "123456",
+    "lote": "123456",
+    "responsecode": "00",
+    "deferred": false
+}
+```
 
 ### ejemplo de voucher
 
