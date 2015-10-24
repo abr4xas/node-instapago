@@ -1,9 +1,12 @@
 {
   "name": "instapago",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Librería Instapago para Node.js",
   "main": "index.js",
   "scripts": {
+    "watch": "babel instapago.js -w -o index.js",
+    "compile": "babel instapago.js -o index.js",
+    "prepublish": "npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -32,5 +35,8 @@
   "homepage": "https://github.com/abr4xas/node-instapago#readme",
   "dependencies": {
     "request": "^2.65.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23"
   }
 }

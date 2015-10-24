@@ -1,147 +1,136 @@
-## DOCUMENTACIÓN
----
-Bienvenido a la documentación oficial del módulo `instapago`.
+# DOCUMENTACIÓN
 
-### Tabla de contenido
+Bienvenido a la documentación del módulo **Instapago**.
+
+## tabla de contenido
 
 * [instalación](#instalación)
 * [uso del módulo](#uso-del-módulo)
-* [crear pago](#crear-pago)
-    * [Parámetros requeridos para crear el pago](#parámetros-requeridos-para-crear-el-pago)
-    * [creación del pago con los valores requeridos](#creación-del-pago-con-los-valores-requeridos)
-    * [Parámetros opcionales para crear el pago](#parámetros-opcionales-para-crear-el-pago)
-    * [Respuesta](#respuesta)
-* [procesar pago]()
-* [eliminar pago]()
-* [Ejemplo de voucher](#ejemplo-de-voucher)
-* [Códigos de respuesta](#códigos-de-respuesta)
+* [métodos del API](#métodos-del-api)
+    * [crear pago](#crear-pago-payconfig-callback)
+        * [parámetros requeridos para crear el pago](#parámetros-requeridos-para-crear-el-pago)
+        * [parámetros opcionales para crear el pago](#parámetros-opcionales-para-crear-el-pago)
+        * [ejemplo](#ejemplo)
+    * [continuar pago](#continuar-pago-completepaymentconfig-callback)
+    * [eliminar pago](#eliminar-pago-cancelpaymentconfig-callback)
+    * [información del pago](#información-del-pago-paymentinfoconfig-callback)
+* [ejemplo de voucher](#ejemplo-de-voucher)
+* [códigos de respuesta](#códigos-de-respuesta)
+* [licencia](#licencia)
 
-### instalación
+## instalación
 
-Existen dos formas:
-
-* De forma local:
 ```bash
-$ npm install instapago
-```
-* De forma global (puede necesitar usar `sudo`):
-```bash
-$ npm install -g instapago
+$ npm install instapago --save
 ```
 
-### uso del módulo
+## uso del módulo
 
-* incluir el módulo
-```javascript
-var Instapago = require('instapago');
-```
-* incluir las llaves de acceso al API de instapago
-```javascript
-var keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-GENERADA-POR-INSTAPAGO>';
-var publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
-```
-> Debe solicitar las llaves (`keyId`,`publicKeyId`) en la página de instapago. Para mayor información clic [aquí](http://instapago.com/wp-content/uploads/2015/04/Guia-Integracion-API-Instapago-1.5.4.pdf)
+```js
+// Incluir el módulo en tu proyecto
+import Instapago from 'instapago';
 
-* creamos la instancia
-```javascript
-var pago = new Instapago(key, publicKey);
-```
+// Incluir las llaves de acceso al API de Instapago
+const keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-PRIVADA>';
+const publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
 
-Tambien podemos hacerlo de la siguiente forma:
+// Crear una nueva instancia de Instapago
+const pago = new Instapago(key, publicKey);
 
-```javascript
-var Instapago = require('instapago');
-var keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-GENERADA-POR-INSTAPAGO>';
-var publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
-var pago = new Instapago(keyId, publicKeyId);
-```
-
-### crear pago
-Este método consta del envío de los datos de un pago con tarjeta de crédito a Instapago para su autorización  simplemente llamamos al método `pago.pay({});`
-
-#### Parámetros requeridos para crear el pago
-* KeyId (Requerido): Llave generada desde Instapago.
-* PublicKeyId (Requerido): Llave compartida Enviada por correo al crear una cuenta
-en instapago.
-* Amount (Requerido): Monto a Debitar, utilizando punto “.” Como separador decimal.
-Por ejemplo: 200.00.
-* Description (Requerido): Cadena de caracteres con la descripción de la operación.
-* CardHolder (Requerido): Nombre del Tarjeta habiente.
-* CardHolderID (Requerido): Cédula o RIF del Tarjeta habiente.
-* CardNumber (Requerido): Numero de la tarjeta de crédito, sin espacios ni
-separadores.
-* CVC (Requerido): Código secreto de la Tarjeta de crédito.
-* ExpirationDate (Requerido): Fecha de expiración de la tarjeta en el formato mostrado
-en la misma MM/YYYY. Por Ejemplo: 10/2014.
-* StatusId (Requerido): Estatus en el que se creará la transacción.
-    * "1": Retener (pre-autorización).
-    * "2": Pagar (autorización).
-* IP (Requerido): Dirección IP del cliente.
-
-
-> NOTA: Debe tener en cuenta la opción `StatusId` es muy importante determinar cual de las opciones es necesaria para la aplicación.
-
-#### creación del pago con los valores requeridos
-
-```javascript
+// Efectuar un pago
 pago.pay({
-    amount: '500',
+    amount: 500,
     description: 'Probando el módulo Instapago',
     card_holder: 'Nombre Apellido',
-    card_holder_id: '12345678',
-    card_number: '4111111111111111',
-    cvc: '123',
+    card_holder_id: 12345678,
+    card_number: 4111111111111111,
+    cvc: 123,
     expiration_date: '10/2017',
-    status_id: '2',
+    status_id: 2,
     ip: '127.0.0.1'
 }, function(err, respuesta) {
     if (err) {
-        // haz algo con el error.
+        // hacer algo con el error.
     }
-    // haz algo con la respuesta.
+    // hacer algo con la respuesta.
 });
 ```
+> **Importante**: Se debe solicitar las llaves `keyId` y `publicKeyId` en la página de Instapago. [Aquí](http://instapago.com/wp-content/uploads/2015/10/Guia-Integracion-API-Instapago-1.6.pdf) puedes encontrar mayor información.
+Además, se recomienda definirlas como variables de entorno para mayor seguridad.
 
-#### Parámetros opcionales para crear el pago
-* OrderNumber (Opcional): Numero de orden del pago según el comercio.
-* Address (Opcional): Dirección asociada a la tarjeta, Utilizada por algunos bancos
-para mayor seguridad.
-* City (Opcional): Ciudad asociada a la tarjeta, Utilizada por algunos bancos para
-mayor seguridad.
-* ZipCode (Opcional): Código Postal asociada a la tarjeta, Utilizada por algunos
-bancos para mayor seguridad.
-* State (Opcional): Estado o provincia asociada a la tarjeta, Utilizada por algunos
-bancos para mayor seguridad.
+## métodos del API
 
-#### creación del pago con los valores opcionales
+A continuación se describen los métodos disponibles en la librería Instapago.
 
-```javascript
+### crear pago `pay(config, callback)`
+
+Efectúa un pago con tarjeta de crédito, una vez procesado retornar una respuesta.
+
+#### argumentos
+
+`config` Objeto con los parámetros requeridos para efectuar un pago.
+
+`callback` Función que será llamada una vez procesado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
+
+#### Parámetros _requeridos_ para crear el pago
+
+* `amount` Monto a Debitar, utilizando punto (.) como separador decimal. Por ejemplo: 200.00
+* `description` Texto con la descripción de la operación.
+* `card_holder` Nombre del Tarjeta habiente.
+* `card_holder_id` Cédula o RIF del Tarjeta habiente.
+* `card_number` Número de la tarjeta de crédito, sin espacios ni
+separadores.
+* `cvc` Código secreto de la Tarjeta de crédito.
+* `expiration_date` Fecha de expiración de la tarjeta en el formato mostrado
+en la misma MM/YYYY. Por Ejemplo: 10/2015.
+* `status_id` Status en el que se creará la transacción.
+    * 1: Retener (Pre-Autorización).
+    * 2: Pagar (Autorización).
+* `ip` Dirección IP del cliente.
+
+#### Parámetros _opcionales_ para crear el pago
+
+* `order_number` Número de orden del pago según el comercio.
+* `address` Dirección asociada a la tarjeta. Utilizada por algunos bancos para mayor seguridad.
+* `city` Ciudad asociada a la tarjeta. Utilizada por algunos bancos para mayor seguridad.
+* `zip_code` Código Postal asociada a la tarjeta. Utilizado por algunos bancos para mayor seguridad.
+* `state` Estado o provincia asociada a la tarjeta. Utilizado por algunos bancos para mayor seguridad.
+
+#### Ejemplo
+
+Ejemplo.js
+
+```js
+import Instapago from 'instapago';
+
+const keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-PRIVADA>';
+const publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
+const pago = new Instapago(key, publicKey);
+
 pago.pay({
-    amount: '500',
-    description: 'Probando el módulo Instapago',
-    card_holder: 'Nombre Apellido',
-    card_holder_id: '12345678',
-    card_number: '4111111111111111',
-    cvc: '123',
+    amount: 37800,
+    description: 'Calzados de tacón alto',
+    card_holder: 'Mónica Márquez',
+    card_holder_id: 12345678,
+    card_number: 4111111111111111,
+    cvc: 123,
     expiration_date: '10/2017',
-    status_id: '2',
+    status_id: 2,
     ip: '127.0.0.1',
-    order_number: '123456',
-    address: 'calle 1, avenida 2, casa 3',
+    order_number: 123456,
+    address: 'calle 1, edificio 2, apartamento 3',
     city: 'Maracaibo',
-    zip_code: '4002',
+    zip_code: 4002,
     state: 'Zulia'
 }, function(err, respuesta) {
     if (err) {
-        // haz algo con el error.
+        return console.log(err);
     }
-    // haz algo con la respuesta.
+    
+    console.log(respuesta);
 });
 ```
-
-#### Respuesta
-
-De realizar el procedimiento de forma correcta vamos a obtener un resultado como el siguiente:
+Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
 
 ```json
 {
@@ -160,23 +149,171 @@ De realizar el procedimiento de forma correcta vamos a obtener un resultado como
 }
 ```
 
-#### procesar pago
-TODO
-#### eliminar pago
-TODO
-#### Ejemplo de voucher
+### continuar pago `completePayment(config, callback)`
+
+Continúa un pago **Retenido** o **Pre-Aprobado**, una vez procesado retornar una respuesta.
+
+#### argumentos
+
+`config` Objeto con los parámetros requeridos para continuar un pago:
+
+* `amount` Monto a Debitar, utilizando punto (.) como separador decimal. Por ejemplo: 200.00
+* `id` Identificador único del pago que se desea continuar.
+
+`callback` Función que será llamada una vez procesado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
+
+#### Ejemplo
+
+Ejemplo.js
+
+```js
+// ...
+
+pago.continuePayment({
+    amount: 37800,
+    id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
+}, function(err, respuesta) {
+    if (err) {
+        return console.log(err);
+    }
+    
+    console.log(respuesta);
+});
+```
+Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+
+```json
+{
+    "success": true,
+    "message": "Pago Completado",
+    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+    "code": "201",
+    "reference": "123456",
+    "voucher": "<HTML del voucher>",
+    "ordernumber": "123456",
+    "sequence": "123456",
+    "approval": "123456",
+    "lote": "123456",
+    "responsecode": "00",
+    "deferred": false
+}
+```
+
+### eliminar pago `cancelPayment(config, callback)`
+
+Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Una vez procesada la operación, retornar una respuesta.
+
+#### argumentos
+
+`config` Objeto con los parámetros requeridos para anular un pago:
+
+* `id` Identificador único del pago que se desea anular.
+
+`callback` Función que será llamada una vez anulado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
+
+#### Ejemplo
+
+Ejemplo.js
+
+```js
+// ...
+
+pago.cancelPayment({
+    id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
+}, function(err, respuesta) {
+    if (err) {
+        return console.log(err);
+    }
+    
+    console.log(respuesta);
+});
+```
+Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+
+```json
+{
+    "success": true,
+    "message": "Pago Anulado",
+    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+    "code": "201",
+    "reference": "123456",
+    "voucher": "<HTML del voucher>",
+    "ordernumber": "123456",
+    "sequence": "123456",
+    "approval": "123456",
+    "lote": "123456",
+    "responsecode": "00",
+    "deferred": false
+}
+```
+
+### información del pago `paymentInfo(config, callback)`
+
+Consulta información sobre un pago generado anteriormente.
+
+#### argumentos
+
+`config` Objeto con los parámetros requeridos para consultar información sobre un pago:
+
+* `id` Identificador único del pago que se desea consultar.
+
+`callback` Función que será llamada una vez consultado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
+
+#### Ejemplo
+
+Ejemplo.js
+
+```js
+// ...
+
+pago.paymentInfo({
+    id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
+}, function(err, respuesta) {
+    if (err) {
+        return console.log(err);
+    }
+    
+    console.log(respuesta);
+});
+```
+Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+
+```json
+{
+    "success": true,
+    "message": "Pre-autorizada",
+    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+    "code": "201",
+    "reference": "123456",
+    "voucher": "<HTML del voucher>",
+    "ordernumber": "123456",
+    "sequence": "123456",
+    "approval": "123456",
+    "lote": "123456",
+    "responsecode": "00",
+    "deferred": false
+}
+```
+
+### ejemplo de voucher
+
 ![voucher](http://i.imgur.com/sE05jmH.png)
-#### Códigos de respuesta
 
-Para todas las transacciones realizadas bajo el API de Instapago, los códigos HTTP de respuestas corresponden a los siguientes estados:
+### códigos de respuesta
 
-* ```201```: Pago procesado con éxito.
+Para todas las transacciones realizadas bajo el API de Instapago, los códigos HTTP de respuestas corresponden a los siguientes estados:
+
+* ```201```: Pago procesado con éxito.
 * ```400```: Error al validar los datos enviados (Adicionalmente se devuelve una cadena de
-caracteres con la descripción del error).
-* ```401```: Error de autenticación, ha ocurrido un error con las llaves utilizadas.
+caracteres con la descripción del error).
+* ```401```: Error de autenticación, ha ocurrido un error con las llaves utilizadas.
 * ```403```: Pago Rechazado por el banco.
 * ```500```: Ha Ocurrido un error interno dentro del servidor.
-* ```503```: Ha Ocurrido un error al procesar los parámetros de entrada. Revise los datos
+* ```503```: Ha Ocurrido un error al procesar los parámetros de entrada. Revise los datos
 enviados y vuelva a intentarlo.
 
 > **Importante**: Si recibe un código de respuesta diferente a los antes descritos deben ser tomados como errores de protocolo HTTP.
+
+# licencia
+
+Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2015 [Autores de la librería](AUTORES.md)

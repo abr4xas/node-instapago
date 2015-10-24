@@ -18,6 +18,10 @@
         <img alt="licencia" src="https://img.shields.io/npm/l/venezuela.svg">
     </a>
 </p>
+<p align="center">
+    <sup style="color: #d0d0d0;"><b>NOTA</b> Los logos son propiedad de Instapago y Banesco, respectivamente.</sup>
+</p>
+
 ----
 
 ## instalación
@@ -26,21 +30,22 @@
 $ npm install instapago
 ```
 
-## uso
+## ejemplo
 
 ```js
-var Instapago = require('instapago');
-var pago = new Instapago('<LLAVE-PRIVADA>', '<LLAVE-PÚBLICA>');
+import Instapago from 'instapago';
+
+const pago = new Instapago('<LLAVE-PRIVADA>', '<LLAVE-PÚBLICA>');
 
 pago.pay({
-    amount: '500',
+    amount: 500,
     description: 'Probando el módulo Instapago',
     card_holder: 'Nombre Apellido',
-    card_holder_id: '12345678',
-    card_number: '4111111111111111',
-    cvc: '123',
+    card_holder_id: 12345678,
+    card_number: 4111111111111111,
+    cvc: 123,
     expiration_date: '10/2017',
-    status_id: '2',
+    status_id: 2,
     ip: '127.0.0.1'
 }, function(err, respuesta) {
     if (err) {
@@ -49,12 +54,13 @@ pago.pay({
     // haz algo con la respuesta.
 });
 ```
+## enlaces
 
-## documentación
 * [Documentación de la librería Instapago](DOCUMENTACION.md)
+* [Registro de cambios](CHANGELOG.md)
+* [Colaboración](CONTRIBUCION.md)
+* [Autores](AUTORES.md)
 
 ## licencia
 
-Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: Jobsamuel Núñez & Angel Cruz
-
-<sup>**NOTA** Los logos son propiedad de Instapago y Banesco, respectivamente.</sup>
+Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2015 [Autores de la librería](AUTORES.md)
