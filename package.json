@@ -4,6 +4,9 @@
   "description": "Librería Instapago para Node.js",
   "main": "index.js",
   "scripts": {
+    "watch": "babel instapago.js -w -o index.js",
+    "compile": "babel instapago.js -o index.js",
+    "prepublish": "npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -33,7 +36,7 @@
   "dependencies": {
     "request": "^2.65.0"
   },
-  "engines" : { 
-    "node" : ">= 4" 
+  "devDependencies": {
+    "babel": "^5.8.23"
   }
 }
