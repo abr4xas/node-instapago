@@ -23,13 +23,12 @@ Bienvenido a la documentación del módulo **Instapago**.
 ```bash
 $ npm install instapago --save
 ```
-Instapago requiere **Node v4.0.0** o superior para el soporte (parcial) de ES2015.
 
 ## uso del módulo
 
 ```js
 // Incluir el módulo en tu proyecto
-const Instapago = require('instapago');
+import Instapago from 'instapago';
 
 // Incluir las llaves de acceso al API de Instapago
 const keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-PRIVADA>';
@@ -87,8 +86,6 @@ en la misma MM/YYYY. Por Ejemplo: 10/2015.
     * 2: Pagar (Autorización).
 * `ip` Dirección IP del cliente.
 
-> **Nota**: Debe tener en cuenta la opción `status_id` es muy importante determinar cual de las opciones es necesaria para la aplicación.
-
 #### Parámetros _opcionales_ para crear el pago
 
 * `order_number` Número de orden del pago según el comercio.
@@ -102,7 +99,8 @@ en la misma MM/YYYY. Por Ejemplo: 10/2015.
 Ejemplo.js
 
 ```js
-const Instapago = require('instapago');
+import Instapago from 'instapago';
+
 const keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-PRIVADA>';
 const publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
 const pago = new Instapago(key, publicKey);

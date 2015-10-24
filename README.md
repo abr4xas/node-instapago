@@ -29,12 +29,12 @@
 ```bash
 $ npm install instapago
 ```
-Instapago requiere **Node v4.0.0** o superior para el soporte (parcial) de ES2015.
 
 ## ejemplo
 
 ```js
-const Instapago = require('instapago');
+import Instapago from 'instapago';
+
 const pago = new Instapago('<LLAVE-PRIVADA>', '<LLAVE-PÚBLICA>');
 
 pago.pay({
