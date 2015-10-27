@@ -1,6 +1,11 @@
-# DOCUMENTACIÓN
+<p align="center">
+    <img alt="node-instapago" src="http://i.imgur.com/hYNsH6B.jpg" width="auto">
+</p>
+<p align="center">
+    Documentación del módulo <b>Instapago</b>
+</p>
 
-Bienvenido a la documentación del módulo **Instapago**.
+----
 
 ## tabla de contenido
 
