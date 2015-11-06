@@ -5,17 +5,17 @@
     Librería Instapago para Node.js
 </p>
 <p align="center">
-    <a href="https://badge.fury.io/js/instapago">
-        <img src="https://badge.fury.io/js/instapago.svg" alt="npm version" height="18">
+    <a href="https://www.npmjs.com/package/instapago">
+        <img src="https://img.shields.io/npm/v/instapago.svg?style=flat-square" alt="npm version">
     </a>
     <a href="https://www.npmjs.com/package/instapago">
-        <img alt="descargas" src="https://img.shields.io/npm/dt/instapago.svg">
+        <img alt="descargas" src="https://img.shields.io/npm/dt/instapago.svg?style=flat-square">
     </a>
     <a href="https://badge.fury.io/js/instapago">
-        <img alt="dependencias" src="https://david-dm.org/abr4xas/node-instapago.svg">
+        <img alt="dependencias" src="https://david-dm.org/abr4xas/node-instapago.svg?style=flat-square">
     </a>
     <a href="https://www.npmjs.com/package/instapago">
-        <img alt="licencia" src="https://img.shields.io/npm/l/venezuela.svg">
+        <img alt="licencia" src="https://img.shields.io/npm/l/venezuela.svg?style=flat-square">
     </a>
 </p>
 <p align="center">
