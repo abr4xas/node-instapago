@@ -1,6 +1,11 @@
-# DOCUMENTACIÓN
+<p align="center">
+    <img alt="node-instapago" src="http://i.imgur.com/hYNsH6B.jpg" width="auto">
+</p>
+<p align="center">
+    Documentación del módulo <b>Instapago</b>
+</p>
 
-Bienvenido a la documentación del módulo **Instapago**.
+----
 
 ## tabla de contenido
 
@@ -202,6 +207,8 @@ Una vez procesada la operación satisfactoriamente, se obtiene un resultado como
 ### eliminar pago `cancelPayment(config, callback)`
 
 Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Una vez procesada la operación, retornar una respuesta.
+
+> **Importante**: Actualmente, el API de Instapago no permite utilizar este método en *Modo de Pruebas*; al intentarlo se recibirá un error.
 
 #### argumentos
 

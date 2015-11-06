@@ -2,19 +2,71 @@
 
 import request from 'request';
 
-function Instapago(keyId, publicKeyId) {
-	if (!keyId || !publicKeyId) {
-		const message = 'Los parámetros "keyId" y "publicKeyId" son requeridos para procesar la petición.';
-		throw new Error(message);
-	} else if (typeof keyId !== 'string' || typeof publicKeyId !== 'string') {
-		const message = 'Los parámetros "keyId" y "publicKeyId" deben ser String.';
-		throw new Error(message);
-	}
-	
-	this._keys = {
-		key_id: keyId,
-		public_key_id: publicKeyId
-	};
+class Instapago {
+    constructor(keyId, publicKeyId) {
+        if (!keyId || !publicKeyId) {
+            const message = 'Los parámetros "keyId" y "publicKeyId" son requeridos para procesar la petición.';
+            throw new Error(message);
+        } else if (typeof keyId !== 'string' || typeof publicKeyId !== 'string') {
+            const message = 'Los parámetros "keyId" y "publicKeyId" deben ser String.';
+            throw new Error(message);
+        }
+        
+        this._keys = {
+            key_id: keyId,
+            public_key_id: publicKeyId
+        };
+    }
+
+    pay(config, callback) {
+        const endpoint = 'payment';
+        const method = 'POST';
+
+        check(config, (param) => {
+            if (param) {
+                const err = new Error(`El parámetro ${param} es requerido para procesar la petición.`);
+                return callback(err);
+            }
+
+            process(this._keys, { endpoint, method }, config, callback);
+        });
+    }
+
+    continuePayment(config, callback) {
+        const endpoint = 'complete';
+        const method = 'POST';
+
+        if (config && (!config.id || !config.amount)) {
+            const err = new Error('Los parámetros "id" y "amount" son requeridos para procesar la petición.');
+            return callback(err);
+        };
+
+        process(this._keys, { endpoint, method }, config, callback);
+    }
+
+    cancelPayment(config, callback) {
+        const endpoint = 'payment';
+        const method = 'DELETE';
+
+        if (config && !config.id) {
+            const err = new Error('El parámetro "id" es requerido para procesar la petición.');
+            return callback(err);
+        };
+
+        process(this._keys, { endpoint, method }, config, callback);
+    }
+
+    paymentInfo(config, callback) {
+        const endpoint = 'payment';
+        const method = 'GET';
+
+        if (config && !config.id) {
+            const err = new Error('El parámetro "id" es requerido para procesar la petición.');
+            return callback(err);
+        };
+
+        process(this._keys, { endpoint, method }, config, callback);
+    }
 }
 
 function process(keys, options, config, callback) {
@@ -116,56 +168,6 @@ function check(obj, callback) {
     });
 
     return callback(missedParam);
-}
-
-Instapago.prototype.pay = function(config, callback) {
-	const endpoint = 'payment';
-	const method = 'POST';
-
-	check(config, (param) => {
-        if (param) {
-            const err = new Error(`El parámetro ${param} es requerido para procesar la petición.`);
-            return callback(err);
-        }
-
-        process(this._keys, { endpoint, method }, config, callback);
-    });
-}
-
-Instapago.prototype.continuePayment = function(config, callback) {
-	const endpoint = 'complete';
-	const method = 'POST';
-
-	if (config && (!config.id || !config.amount)) {
-		const err = new Error('Los parámetros "id" y "amount" son requeridos para procesar la petición.');
-		return callback(err);
-	};
-
-	process(this._keys, { endpoint, method }, config, callback);
-}
-
-Instapago.prototype.cancelPayment = function(config, callback) {
-	const endpoint = 'payment';
-	const method = 'DELETE';
-
-	if (config && !config.id) {
-		const err = new Error('El parámetro "id" es requerido para procesar la petición.');
-		return callback(err);
-	};
-
-	process(this._keys, { endpoint, method }, config, callback);
-}
-
-Instapago.prototype.paymentInfo = function(config, callback) {
-	const endpoint = 'payment';
-	const method = 'GET';
-
-	if (config && !config.id) {
-		const err = new Error('El parámetro "id" es requerido para procesar la petición.');
-		return callback(err);
-	};
-
-	process(this._keys, { endpoint, method }, config, callback);
 }
 
 export default Instapago;
