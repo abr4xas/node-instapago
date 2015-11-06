@@ -208,6 +208,8 @@ Una vez procesada la operación satisfactoriamente, se obtiene un resultado como
 
 Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Una vez procesada la operación, retornar una respuesta.
 
+> **Importante**: Actualmente, el API de Instapago no permite utilizar este método en *Modo de Pruebas*; al intentarlo se recibirá un error.
+
 #### argumentos
 
 `config` Objeto con los parámetros requeridos para anular un pago:
