@@ -38,20 +38,21 @@ import Instapago from 'instapago';
 const pago = new Instapago('<LLAVE-PRIVADA>', '<LLAVE-PÚBLICA>');
 
 pago.pay({
-    amount: 500,
-    description: 'Probando el módulo Instapago',
-    card_holder: 'Nombre Apellido',
-    card_holder_id: 12345678,
-    card_number: 4111111111111111,
-    cvc: 123,
-    expiration_date: '10/2017',
-    status_id: 2,
-    ip: '127.0.0.1'
+  amount: 500,
+  description: 'Probando el módulo Instapago',
+  card_holder: 'Nombre Apellido',
+  card_holder_id: 12345678,
+  card_number: 4111111111111111,
+  cvc: 123,
+  expiration_date: '10/2017',
+  status_id: 2,
+  ip: '127.0.0.1'
 }, function(err, respuesta) {
-    if (err) {
-        // haz algo con el error.
-    }
-    // haz algo con la respuesta.
+  if (err) {
+    // haz algo con el error.
+  }
+
+  // haz algo con la respuesta.
 });
 ```
 ## enlaces
@@ -63,4 +64,4 @@ pago.pay({
 
 ## licencia
 
-Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2015 [Autores de la librería](AUTORES.md)
+Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2016 [Autores de la librería](AUTORES.md)
