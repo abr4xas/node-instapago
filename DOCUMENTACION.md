@@ -44,20 +44,21 @@ const pago = new Instapago(key, publicKey);
 
 // Efectuar un pago
 pago.pay({
-    amount: 500,
-    description: 'Probando el módulo Instapago',
-    card_holder: 'Nombre Apellido',
-    card_holder_id: 12345678,
-    card_number: 4111111111111111,
-    cvc: 123,
-    expiration_date: '10/2017',
-    status_id: 2,
-    ip: '127.0.0.1'
+  amount: 500,
+  description: 'Probando el módulo Instapago',
+  card_holder: 'Nombre Apellido',
+  card_holder_id: 12345678,
+  card_number: 4111111111111111,
+  cvc: 123,
+  expiration_date: '10/2017',
+  status_id: 2,
+  ip: '127.0.0.1'
 }, function(err, respuesta) {
-    if (err) {
-        // hacer algo con el error.
-    }
-    // hacer algo con la respuesta.
+  if (err) {
+    // hacer algo con el error.
+  }
+
+  // hacer algo con la respuesta.
 });
 ```
 > **Importante**: Se debe solicitar las llaves `keyId` y `publicKeyId` en la página de Instapago. [Aquí](http://instapago.com/wp-content/uploads/2016/02/Guia-Integracion-API-Instapago-1.6.pdf) puedes encontrar mayor información.
@@ -113,44 +114,44 @@ const publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
 const pago = new Instapago(key, publicKey);
 
 pago.pay({
-    amount: 37800,
-    description: 'Calzados de tacón alto',
-    card_holder: 'Mónica Márquez',
-    card_holder_id: 12345678,
-    card_number: 4111111111111111,
-    cvc: 123,
-    expiration_date: '10/2017',
-    status_id: 2,
-    ip: '127.0.0.1',
-    order_number: 123456,
-    address: 'calle 1, edificio 2, apartamento 3',
-    city: 'Maracaibo',
-    zip_code: 4002,
-    state: 'Zulia'
+  amount: 37800,
+  description: 'Calzados de tacón alto',
+  card_holder: 'Mónica Márquez',
+  card_holder_id: 12345678,
+  card_number: 4111111111111111,
+  cvc: 123,
+  expiration_date: '10/2017',
+  status_id: 2,
+  ip: '127.0.0.1',
+  order_number: 123456,
+  address: 'calle 1, edificio 2, apartamento 3',
+  city: 'Maracaibo',
+  zip_code: 4002,
+  state: 'Zulia'
 }, function(err, respuesta) {
-    if (err) {
-        return console.log(err);
-    }
-    
-    console.log(respuesta);
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log(respuesta);
 });
 ```
 Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
 
 ```json
 {
-    "success": true,
-    "message": "Pago Aprobado",
-    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
-    "code": "201",
-    "reference": "123456",
-    "voucher": "<HTML del voucher>",
-    "ordernumber": "123456",
-    "sequence": "123456",
-    "approval": "123456",
-    "lote": "123456",
-    "responsecode": "00",
-    "deferred": false
+  "success": true,
+  "message": "Pago Aprobado",
+  "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+  "code": "201",
+  "reference": "123456",
+  "voucher": "<HTML del voucher>",
+  "ordernumber": "123456",
+  "sequence": "123456",
+  "approval": "123456",
+  "lote": "123456",
+  "responsecode": "00",
+  "deferred": false
 }
 ```
 
@@ -175,32 +176,32 @@ Ejemplo.js
 // ...
 
 pago.continuePayment({
-    amount: 37800,
-    id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
+  amount: 37800,
+  id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
 }, function(err, respuesta) {
-    if (err) {
-        return console.log(err);
-    }
-    
-    console.log(respuesta);
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log(respuesta);
 });
 ```
 Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
 
 ```json
 {
-    "success": true,
-    "message": "Pago Completado",
-    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
-    "code": "201",
-    "reference": "123456",
-    "voucher": "<HTML del voucher>",
-    "ordernumber": "123456",
-    "sequence": "123456",
-    "approval": "123456",
-    "lote": "123456",
-    "responsecode": "00",
-    "deferred": false
+  "success": true,
+  "message": "Pago Completado",
+  "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+  "code": "201",
+  "reference": "123456",
+  "voucher": "<HTML del voucher>",
+  "ordernumber": "123456",
+  "sequence": "123456",
+  "approval": "123456",
+  "lote": "123456",
+  "responsecode": "00",
+  "deferred": false
 }
 ```
 
@@ -226,31 +227,31 @@ Ejemplo.js
 // ...
 
 pago.cancelPayment({
-    id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
+  id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
 }, function(err, respuesta) {
-    if (err) {
-        return console.log(err);
-    }
-    
-    console.log(respuesta);
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log(respuesta);
 });
 ```
 Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
 
 ```json
 {
-    "success": true,
-    "message": "Pago Anulado",
-    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
-    "code": "201",
-    "reference": "123456",
-    "voucher": "<HTML del voucher>",
-    "ordernumber": "123456",
-    "sequence": "123456",
-    "approval": "123456",
-    "lote": "123456",
-    "responsecode": "00",
-    "deferred": false
+  "success": true,
+  "message": "Pago Anulado",
+  "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+  "code": "201",
+  "reference": "123456",
+  "voucher": "<HTML del voucher>",
+  "ordernumber": "123456",
+  "sequence": "123456",
+  "approval": "123456",
+  "lote": "123456",
+  "responsecode": "00",
+  "deferred": false
 }
 ```
 
@@ -274,31 +275,31 @@ Ejemplo.js
 // ...
 
 pago.paymentInfo({
-    id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
+  id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
 }, function(err, respuesta) {
-    if (err) {
-        return console.log(err);
-    }
-    
-    console.log(respuesta);
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log(respuesta);
 });
 ```
 Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
 
 ```json
 {
-    "success": true,
-    "message": "Pre-autorizada",
-    "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
-    "code": "201",
-    "reference": "123456",
-    "voucher": "<HTML del voucher>",
-    "ordernumber": "123456",
-    "sequence": "123456",
-    "approval": "123456",
-    "lote": "123456",
-    "responsecode": "00",
-    "deferred": false
+  "success": true,
+  "message": "Pre-autorizada",
+  "id": "c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56",
+  "code": "201",
+  "reference": "123456",
+  "voucher": "<HTML del voucher>",
+  "ordernumber": "123456",
+  "sequence": "123456",
+  "approval": "123456",
+  "lote": "123456",
+  "responsecode": "00",
+  "deferred": false
 }
 ```
 
@@ -323,4 +324,4 @@ enviados y vuelva a intentarlo.
 
 # licencia
 
-Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2015 [Autores de la librería](AUTORES.md)
+Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2016 [Autores de la librería](AUTORES.md)

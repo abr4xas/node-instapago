@@ -2,6 +2,25 @@
 
 > Todos los cambios significativos en la librería serán registrados en éste documento.
 
+## [0.4.1](https://github.com/abr4xas/node-instapago/tree/v0.4.1) - 2016-04-21
+
+### Cambiado
+
+* Se modificó el tamaño del indentado en el código; tanto en `instapago.js` como en los ejemplos mostrados en `README.md` y `DOCUMENTACION.md`.
+* Se actualizó la fecha de los derechos en `README.md` y `DOCUMENTACION.md`.
+* Se corrigieron algunos errores tipográfico en `instapago.js` y enlaces rotos en `DOCUMENTACION.md`.
+
+## [0.4.0](https://github.com/abr4xas/node-instapago/tree/v0.4.0) - 2015-11-05
+
+### Nuevo
+
+* Se reescribió la clase `Instapago` a a Javascript ES2015 (ES6).
+* Se especificó una limitante del API en `DOCUMENTACION.md`.
+
+### Cambiado
+
+* Se cambiaron las insignias del `README.md`.
+
 ## [0.3.0](https://github.com/abr4xas/node-instapago/tree/v0.3.0) - 2015-10-24
 
 ### Nuevo
