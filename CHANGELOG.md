@@ -2,6 +2,12 @@
 
 > Todos los cambios significativos en la librería serán registrados en éste documento.
 
+## [0.4.2](https://github.com/abr4xas/node-instapago/tree/v0.4.2) - 2016-05-16
+
+### Reparado
+
+* Se solucionó un *bug* que retornaba los resultados correctos cuando se suponía que debía retornar los errores.
+
 ## [0.4.1](https://github.com/abr4xas/node-instapago/tree/v0.4.1) - 2016-04-21
 
 ### Cambiado
