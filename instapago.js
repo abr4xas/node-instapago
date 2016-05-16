@@ -140,7 +140,7 @@ function callInstapago(config, callback) {
       return callback(error);
     }
 
-    if (response.statusCode !== 201) {
+    if (response.statusCode !== 200) {
       return callback(body);
     }
 
