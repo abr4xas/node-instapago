@@ -61,7 +61,7 @@ pago.pay({
   // hacer algo con la respuesta.
 });
 ```
-> **Importante**: Se debe solicitar las llaves `keyId` y `publicKeyId` en la página de Instapago. [Aquí](http://instapago.com/wp-content/uploads/2016/02/Guia-Integracion-API-Instapago-1.6.pdf) puedes encontrar mayor información.
+> **Importante**: Se debe solicitar las llaves `keyId` y `publicKeyId` en la página de Instapago. [Aquí](https://instapago.com/wp-content/uploads/2016/02/Guia-Integracion-API-Instapago-1.6.pdf) puedes encontrar mayor información.
 Además, se recomienda definirlas como variables de entorno para mayor seguridad.
 
 ## métodos del API
