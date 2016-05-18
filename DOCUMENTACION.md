@@ -40,7 +40,7 @@ const keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-PRIVADA>';
 const publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
 
 // Crear una nueva instancia de Instapago
-const pago = new Instapago(key, publicKey);
+const pago = new Instapago(keyId, publicKeyId);
 
 // Efectuar un pago
 pago.pay({
@@ -53,8 +53,8 @@ pago.pay({
   expiration_date: '10/2017',
   status_id: 2,
   ip: '127.0.0.1'
-}, function(err, respuesta) {
-  if (err) {
+}, function(error, respuesta) {
+  if (error) {
     // hacer algo con el error.
   }
 

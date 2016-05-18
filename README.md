@@ -47,12 +47,12 @@ pago.pay({
   expiration_date: '10/2017',
   status_id: 2,
   ip: '127.0.0.1'
-}, function(err, respuesta) {
-  if (err) {
-    // haz algo con el error.
+}, function(error, respuesta) {
+  if (error) {
+    // hacer algo con el error.
   }
 
-  // haz algo con la respuesta.
+  // hacer algo con la respuesta.
 });
 ```
 ## enlaces
