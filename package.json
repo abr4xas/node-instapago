@@ -34,9 +34,9 @@
   },
   "homepage": "https://github.com/abr4xas/node-instapago#readme",
   "dependencies": {
-    "request": "^2.65.0"
+    "request": "^2.74.0"
   },
   "devDependencies": {
-    "babel": "^5.8.23"
+    "babel": "^5.8.38"
   }
 }
