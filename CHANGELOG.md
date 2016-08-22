@@ -2,6 +2,12 @@
 
 > Todos los cambios significativos en la librería serán registrados en éste documento.
 
+## [0.4.3](https://github.com/abr4xas/node-instapago/tree/v0.4.3) - 2016-08-22
+
+### Nuevo
+
+* Actualizadas versiones de los paquetes de dependencias y dependencias de desarrollo en base a la versión  `4.4.7` de node
+
 ## [0.4.2](https://github.com/abr4xas/node-instapago/tree/v0.4.2) - 2016-05-16
 
 ### Reparado
