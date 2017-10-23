@@ -34,9 +34,10 @@
   },
   "homepage": "https://github.com/abr4xas/node-instapago#readme",
   "dependencies": {
-    "request": "^2.65.0"
+    "axios": "^0.17.0"
   },
   "devDependencies": {
-    "babel": "^5.8.23"
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
   }
 }
