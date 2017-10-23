@@ -2,6 +2,23 @@
   "name": "instapago",
   "version": "0.4.2",
   "description": "Librería Instapago para Node.js",
+  "license": "MIT",
+  "author": "Jobsamuel Núñez <jobsamuel.nunez@outlook.com>",
+  "contributors": [
+    {
+      "name": "Angel Cruz",
+      "email": "me@abr4xas.org"
+    }
+  ],
+  "keywords": [
+    "instapago",
+    "banesco",
+    "venezuela",
+    "e-commerce",
+    "pasarela",
+    "tdc",
+    "pos"
+  ],
   "main": "index.js",
   "scripts": {
     "watch": "node_modules/.bin/babel instapago.js -w -o index.js",
@@ -13,22 +30,6 @@
     "type": "git",
     "url": "git+https://github.com/abr4xas/node-instapago.git"
   },
-  "keywords": [
-    "instapago",
-    "banesco",
-    "venezuela",
-    "tdc",
-    "tdd",
-    "e-commerce"
-  ],
-  "author": "Jobsamuel Núñez <jobsamuel.nunez@outlook.com>",
-  "contributors": [
-    {
-      "name": "Angel Cruz",
-      "email": "me@abr4xas.org"
-    }
-  ],
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/abr4xas/node-instapago/issues"
   },
