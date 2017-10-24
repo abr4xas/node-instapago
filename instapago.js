@@ -24,6 +24,7 @@ function instapago({keyId, publicKeyId, strict = true}) {
 }
 
 function processPayment({type, config, data}) {
+  const validation = validatePaymentData(type, data);
   const params = Object.assign({}, config, data);
   let endpoint;
   let method;
@@ -50,11 +51,112 @@ function processPayment({type, config, data}) {
       break;
   }
 
-  return http({
-    method,
-    url: `https://api.instapago.com/${endpoint}`,
-    params: params
+  if (config.strict && validation.error) {
+    return new Promise((resolve, reject) => reject(validation.error));
+  } else {
+    return http({
+      method,
+      url: `https://api.instapago.com/${endpoint}`,
+      params: params
+    });
+  }
+}
+
+function validatePaymentData(type, data) {
+  const rules = [
+    {
+      param: 'amount',
+      rule: 'Sólo caracteres numéricos y punto (.) como separador decimal.',
+      valid: /[0-9]/.test(data.amount)
+    },
+    {
+      param: 'description',
+      rule: 'Cadena de caracteres con los detalles de la operación.',
+      valid: typeof data.description === 'string'
+    },
+    {
+      param: 'cardholder',
+      rule: 'Sólo caracteres alfabéticos, incluyendo la letra ñ y espacio.',
+      valid: /^[ñA-Za-z\s]*$/.test(data.cardholder)
+    },
+    {
+      param: 'cardholderid',
+      rule: 'Sólo caracteres numéricos; mínimo 6 dígitos y máximo 8.',
+      valid: /^[0-9]{6,8}$/.test(data.cardholderid)
+    },
+    {
+      param: 'cardnumber',
+      rule: 'Sólo caracteres numéricos; mínimo 15 dígitos y máximo 16.',
+      valid: /^[0-9]{15,16}$/.test(data.cardnumber)
+    },
+    {
+      param: 'cvc',
+      rule: 'Sólo caracteres numéricos; deben ser 3 dígitos.',
+      valid: /^[0-9]{3}$/.test(data.cvc)
+    },
+    {
+      param: 'expirationdate',
+      rule: 'Sólo fechas mayores a la fecha en curso, en formato MM/YYYY.',
+      valid: isCardExpired(data.expirationdate)
+    },
+    {
+      param: 'statusid',
+      rule: 'Sólo caracteres numéricos; debe ser 1 dígito.',
+      valid: /^[1-2]{1}$/.test(data.statusid)
+    },
+    {
+      param: 'ip',
+      rule: 'Dirección IP del cliente que genera la solicitud del pago.',
+      valid: typeof data.description === 'string'
+    }
+  ];
+  let requiredParams = ['id'];
+  let result = {};
+
+  if (type === 'pay') {
+    requiredParams = [
+      'amount',
+      'description',
+      'cardholder',
+      'cardholderId',
+      'cardnumber',
+      'cvc',
+      'expirationdate',
+      'statusid',
+      'ip'
+    ];
+  } else if (type === 'resume') {
+    requiredParams = ['id', 'amount'];
+  }
+
+  requiredParams.every(param => {
+    const _param = rules.find(rule => rule.param === param);
+
+    if (data[param] && _param.valid) {
+      return true;
+    }
+
+    result = {param: param, error: _param.rule};
+
+    return false;
   });
+
+  return result;
+}
+
+function isCardExpired(date) {
+  const _date = date ? date.split('/') : null;
+
+  if (_date) {
+    const yearOnCard = parseInt(_date[1]);
+    const monthOnCard = parseInt(_date[0]);
+    const year = new Date.getFullYear();
+    const month = new Date.getUTCMonth() + 1;
+
+    return ((yearOnCard === year && monthOnCard >= month) || yearOnCard > year);
+  }
+
+  return false;
 }
 
 export default instapago;
