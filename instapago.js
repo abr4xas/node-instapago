@@ -150,8 +150,8 @@ function isCardExpired(date) {
   if (_date) {
     const yearOnCard = parseInt(_date[1]);
     const monthOnCard = parseInt(_date[0]);
-    const year = new Date.getFullYear();
-    const month = new Date.getUTCMonth() + 1;
+    const year = new Date().getFullYear();
+    const month = new Date().getUTCMonth() + 1;
 
     return ((yearOnCard === year && monthOnCard >= month) || yearOnCard > year);
   }
