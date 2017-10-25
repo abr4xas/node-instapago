@@ -63,62 +63,68 @@ function processPayment(type, config, data) {
 }
 
 function validatePaymentData(type, data) {
+  const result = {};
+  const _data = {};
+
+  Object.keys(data).forEach(key => {
+    Object.assign(_data, {[key.toLowerCase()]: data[key]});
+  });
+
   const rules = [
     {
       param: 'amount',
       rule: 'Sólo caracteres numéricos y punto (.) como separador decimal.',
-      valid: /[0-9]/.test(data.amount)
+      valid: /[0-9]/.test(_data.amount)
     },
     {
       param: 'description',
       rule: 'Cadena de caracteres con los detalles de la operación.',
-      valid: typeof data.description === 'string'
+      valid: typeof _data.description === 'string'
     },
     {
       param: 'cardholder',
       rule: 'Sólo caracteres alfabéticos, incluyendo la letra ñ y espacio.',
-      valid: /^[ñA-Za-z\s]*$/.test(data.cardholder)
+      valid: /^[ñA-Za-z\s]*$/.test(_data.cardholder)
     },
     {
       param: 'cardholderid',
       rule: 'Sólo caracteres numéricos; mínimo 6 dígitos y máximo 8.',
-      valid: /^[0-9]{6,8}$/.test(data.cardholderid)
+      valid: /^[0-9]{6,8}$/.test(_data.cardholderid)
     },
     {
       param: 'cardnumber',
       rule: 'Sólo caracteres numéricos; mínimo 15 dígitos y máximo 16.',
-      valid: /^[0-9]{15,16}$/.test(data.cardnumber)
+      valid: /^[0-9]{15,16}$/.test(_data.cardnumber)
     },
     {
       param: 'cvc',
       rule: 'Sólo caracteres numéricos; deben ser 3 dígitos.',
-      valid: /^[0-9]{3}$/.test(data.cvc)
+      valid: /^[0-9]{3}$/.test(_data.cvc)
     },
     {
       param: 'expirationdate',
       rule: 'Sólo fechas mayores a la fecha en curso, en formato MM/YYYY.',
-      valid: isCardExpired(data.expirationdate)
+      valid: isCardExpired(_data.expirationdate)
     },
     {
       param: 'statusid',
       rule: 'Sólo caracteres numéricos; debe ser 1 dígito.',
-      valid: /^[1-2]{1}$/.test(data.statusid)
+      valid: /^[1-2]{1}$/.test(_data.statusid)
     },
     {
       param: 'ip',
       rule: 'Dirección IP del cliente que genera la solicitud del pago.',
-      valid: typeof data.description === 'string'
+      valid: typeof _data.description === 'string'
     }
   ];
   let requiredParams = ['id'];
-  let result = {};
 
   if (type === 'pay') {
     requiredParams = [
       'amount',
       'description',
       'cardholder',
-      'cardholderId',
+      'cardholderid',
       'cardnumber',
       'cvc',
       'expirationdate',
@@ -132,11 +138,11 @@ function validatePaymentData(type, data) {
   requiredParams.every(param => {
     const _param = rules.find(rule => rule.param === param);
 
-    if (data[param] && _param.valid) {
+    if (_data[param] && _param.valid) {
       return true;
     }
 
-    result = {param: param, error: new Error(_param.rule)};
+    result.error = new Error(`Parámetro inválido (${param}): ${_param.rule}`);
 
     return false;
   });
