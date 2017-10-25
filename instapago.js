@@ -1,6 +1,6 @@
 'use strict';
 
-import { axios as http } from 'axios';
+import axios from 'axios';
 
 function instapago(keyId, publicKeyId, strict = true) {
   if (!keyId || !publicKeyId) {
@@ -40,7 +40,7 @@ function processPayment(type, config, data) {
   if (config.strict && validation.error) {
     return new Promise((resolve, reject) => reject(validation.error));
   } else {
-    return http({
+    return axios({
       method,
       url: `https://api.instapago.com/${endpoint}`,
       params: params
