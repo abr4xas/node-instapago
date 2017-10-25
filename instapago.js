@@ -2,17 +2,19 @@
 
 import { axios as http } from 'axios';
 
-function instapago({keyId, publicKeyId, strict = true}) {
+function instapago(keyId, publicKeyId, strict = true) {
   if (!keyId || !publicKeyId) {
-    throw new Error('Los parámetos keyId y publicKeyId son requerido');
+    throw new Error('Los parámetros keyId y publicKeyId son requeridos.');
   } else if (typeof keyId !== 'string' || typeof publicKeyId !== 'string') {
-    throw new Error('Los parámetos keyId y publicKeyId deben ser String.');
+    throw new Error('Los parámetros keyId y publicKeyId deben ser String.');
   }
 
   const config = {
-    keyId,
-    publicKeyId,
-    strict
+    strict,
+    keys: {
+      keyId,
+      publicKeyId
+    }
   };
 
   return {
@@ -25,30 +27,14 @@ function instapago({keyId, publicKeyId, strict = true}) {
 
 function processPayment(type, config, data) {
   const validation = validatePaymentData(type, data);
-  const params = Object.assign({}, config, data);
-  let endpoint;
-  let method;
+  const params = Object.assign({}, config.keys, data);
+  let endpoint = 'payment';
+  let method = 'POST';
 
-  switch (type) {
-    case 'pay':
-      endpoint = 'payment';
-      method = 'POST';
-      break;
-
-    case 'resume':
-      endpoint = 'complete';
-      method = 'POST';
-      break;
-
-    case 'cancel':
-      endpoint = 'payment';
-      method = 'DELETE';
-      break;
-
-    case 'view':
-      endpoint = 'payment';
-      method = 'GET';
-      break;
+  if (type !== 'pay') {
+    if (type === 'resume') endpoint = 'complete';
+    if (type === 'cancel') method = 'DELETE';
+    if (type === 'view') method = 'GET';
   }
 
   if (config.strict && validation.error) {
