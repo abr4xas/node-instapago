@@ -136,7 +136,7 @@ function validatePaymentData(type, data) {
       return true;
     }
 
-    result = {param: param, error: _param.rule};
+    result = {param: param, error: new Error(_param.rule)};
 
     return false;
   });
