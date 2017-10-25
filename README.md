@@ -1,8 +1,8 @@
 <p align="center">
-    <img alt="node-instapago" src="http://i.imgur.com/hYNsH6B.jpg" width="auto">
+    <img alt="node-instapago" src="https://i.imgur.com/VBWxl1h.png" width="500">
 </p>
 <p align="center">
-    Librería Instapago para Node.js
+    Librería Instapago para NodeJS basada en _Promesas_.
 </p>
 <p align="center">
     <a href="https://www.npmjs.com/package/instapago">
@@ -33,27 +33,23 @@ $ npm install instapago
 ## ejemplo
 
 ```js
-import Instapago from 'instapago';
+import instapago from 'instapago';
 
-const pago = new Instapago('<LLAVE-PRIVADA>', '<LLAVE-PÚBLICA>');
+const i = instapago('<LLAVE-PRIVADA>', '<LLAVE-PÚBLICA>');
 
-pago.pay({
-  amount: 500,
+i.pay({
+  amount: 60000,
   description: 'Probando el módulo Instapago',
-  card_holder: 'Nombre Apellido',
-  card_holder_id: 12345678,
-  card_number: 4111111111111111,
+  cardholder: 'Nombre Apellido',
+  cardholderid: 12345678,
+  cardnumber: 4111111111111111,
   cvc: 123,
-  expiration_date: '10/2017',
-  status_id: 2,
+  expirationdate: '10/2018',
+  statusid: 2,
   ip: '127.0.0.1'
-}, function(error, respuesta) {
-  if (error) {
-    // hacer algo con el error.
-  }
-
-  // hacer algo con la respuesta.
-});
+}).then(respuesta => {
+  console.log(respuesta.data);
+}).catch(error => console.error(error));
 ```
 ## enlaces
 
@@ -64,4 +60,4 @@ pago.pay({
 
 ## licencia
 
-Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2016 [Autores de la librería](AUTORES.md)
+Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2017 [Autores de la librería](AUTORES.md)
