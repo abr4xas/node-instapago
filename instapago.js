@@ -23,7 +23,7 @@ function instapago({keyId, publicKeyId, strict = true}) {
   }
 }
 
-function processPayment({type, config, data}) {
+function processPayment(type, config, data) {
   const validation = validatePaymentData(type, data);
   const params = Object.assign({}, config, data);
   let endpoint;
