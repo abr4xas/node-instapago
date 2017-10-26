@@ -2,6 +2,24 @@
 
 > Todos los cambios significativos en la librería serán registrados en éste documento.
 
+## [0.5.0](https://github.com/abr4xas/node-instapago/tree/v0.5.0) - 2017-10-26
+
+### Nuevo
+
+* Se reescribió la librería. Ahora es una _Factory Function_ basada en _Promesas_.
+* Se agregaron los métodos `resume`, `cancel` y `view`.
+* Se agregó la validación estricta de datos de una petición.
+* Se especifica el nombre de la librería en el encabezado HTTP _User-Agent_.
+
+### Cambiado
+
+* La librería **ya no retorna una _Class Function_**, por lo tanto el uso de `new Instapago` es OBSOLETO.
+* Los métodos `continuePayment`, `cancelPayment` y `paymentInfo` son **OBSOLETOS**.
+* Los métodos de la librería **ya no retornan _callbacks_, sólo promesas**.
+* Los parámetros para hacer una petición deben ser nombrados en estilo _CamelCase_ o en minúsculas. **El estilo _underscore_ es OBSOLETO_**.
+* Se actualizaron las dependencias.
+* Se actualizó el contenido de `README.md` y `DOCUMENTACION.md`.
+
 ## [0.4.2](https://github.com/abr4xas/node-instapago/tree/v0.4.2) - 2016-05-16
 
 ### Reparado
@@ -20,7 +38,7 @@
 
 ### Nuevo
 
-* Se reescribió la clase `Instapago` a a Javascript ES2015 (ES6).
+* Se reescribió la clase `Instapago` a Javascript ES2015 (ES6).
 * Se especificó una limitante del API en `DOCUMENTACION.md`.
 
 ### Cambiado
