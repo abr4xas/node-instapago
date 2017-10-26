@@ -1,180 +1,167 @@
 'use strict';
 
-import request from 'request';
+import axios from 'axios';
+import querystring from 'querystring';
+import { version } from './package.json';
 
-class Instapago {
-  constructor(keyId, publicKeyId) {
-    if (!keyId || !publicKeyId) {
-      const message = 'Los parámetros \'keyId\' y \'publicKeyId\' son requeridos para procesar la petición.';
-
-      throw new Error(message);
-    } else if (typeof keyId !== 'string' || typeof publicKeyId !== 'string') {
-      const message = 'Los parámetros \'keyId\' y \'publicKeyId\' deben ser String.';
-
-      throw new Error(message);
-    }
-
-    this._keys = {
-      key_id: keyId,
-      public_key_id: publicKeyId
-    };
+function instapago(keyId, publicKeyId, strict = true) {
+  if (!keyId || !publicKeyId) {
+    throw new Error('Los parámetros keyId y publicKeyId son requeridos.');
+  } else if (typeof keyId !== 'string' || typeof publicKeyId !== 'string') {
+    throw new Error('Los parámetros keyId y publicKeyId deben ser String.');
   }
 
-  pay(config, callback) {
-    const endpoint = 'payment';
-    const method = 'POST';
+  const config = {
+    strict,
+    keys: {
+      keyId,
+      publicKeyId
+    }
+  };
 
-    check(config, (param) => {
-      if (param) {
-        const err = new Error(`El parámetro ${param} es requerido para procesar la petición.`);
+  return {
+    pay: data => processPayment('pay', config, data),
+    resume: data => processPayment('resume', config, data),
+    cancel: data => processPayment('cancel', config, data),
+    view: data => processPayment('view', config, data)
+  }
+}
 
-        return callback(err);
-      }
+function processPayment(type, config, data) {
+  const validation = validatePaymentData(type, data);
+  const params = Object.assign({}, config.keys, data);
+  let endpoint = 'payment';
+  let method = 'POST';
 
-      process(this._keys, { endpoint, method }, config, callback);
+  if (type !== 'pay') {
+    if (type === 'resume') endpoint = 'complete';
+    if (type === 'cancel') method = 'DELETE';
+    if (type === 'view') method = 'GET';
+  }
+
+  if (config.strict && validation.error) {
+    return new Promise((resolve, reject) => reject(validation.error));
+  } else {
+    return axios({
+      method,
+      url: `https://api.instapago.com/${endpoint}`,
+      data: querystring.stringify(params),
+      params: params,
+      headers: {
+        'User-Agent': `node-instapago/${version}`,
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'application/x-www-form-urlencoded'
+     }
     });
   }
-
-  continuePayment(config, callback) {
-    const endpoint = 'complete';
-    const method = 'POST';
-
-    if (config && (!config.id || !config.amount)) {
-      const err = new Error('Los parámetros \'id\' y \'amount\' son requeridos para procesar la petición.');
-
-      return callback(err);
-    };
-
-    process(this._keys, { endpoint, method }, config, callback);
-  }
-
-  cancelPayment(config, callback) {
-    const endpoint = 'payment';
-    const method = 'DELETE';
-
-    if (config && !config.id) {
-      const err = new Error('El parámetro \'id\' es requerido para procesar la petición.');
-
-      return callback(err);
-    };
-
-    process(this._keys, { endpoint, method }, config, callback);
-  }
-
-  paymentInfo(config, callback) {
-    const endpoint = 'payment';
-    const method = 'GET';
-
-    if (config && !config.id) {
-      const err = new Error('El parámetro \'id\' es requerido para procesar la petición.');
-
-      return callback(err);
-    };
-
-    process(this._keys, { endpoint, method }, config, callback);
-  }
 }
 
-function process(keys, options, config, callback) {
-	if (!config || typeof config !== 'object') {
-		throw new Error('El primer parámetro debe ser un Objeto.');
-	} else if (!callback || typeof callback !== 'function') {
-		throw new Error('El segundo parámetro debe ser una Función.');
-	}
+function validatePaymentData(type, data) {
+  const result = {};
+  const _data = {};
 
-	config.key_id = keys.key_id;
-	config.public_key_id = keys.public_key_id;
-	config.endpoint = options.endpoint;
-	config.method = options.method;
+  Object.keys(data).forEach(key => {
+    Object.assign(_data, {[key.toLowerCase()]: data[key]});
+  });
 
-	callInstapago(config, function(err, response) {
-		if (err) {
-			return callback(err);
-		}
-
-		return callback(null, response);
-	});
-}
-
-function callInstapago(config, callback) {
-  const url = `https://api.instapago.com/${config.endpoint}`;
-  const method = config.method;
-  const keyId = config.key_id;
-  const publicKeyId = config.public_key_id;
-  const options = {
-    url,
-    method
-  };
-  const querystring = {
-    keyId,
-    publicKeyId
-  };
-
-  if (config.method === 'GET' || config.method === 'DELETE') {
-    querystring['Id'] = config.id;
-    options['qs'] = querystring;
-  } else if (config.method === 'POST' && config.endpoint === 'payment') {
-    querystring['Amount'] = config.amount;
-    querystring['Description'] = config.description;
-    querystring['CardHolder'] = config.card_holder;
-    querystring['CardHolderID'] = config.card_holder_id;
-    querystring['CardNumber'] = config.card_number;
-    querystring['CVC'] = config.cvc;
-    querystring['ExpirationDate'] = config.expiration_date;
-    querystring['StatusId'] = config.status_id;
-    querystring['IP'] = config.ip;
-    querystring['OrderNumber'] = config.order_number;
-    querystring['Address'] = config.address;
-    querystring['City'] = config.city;
-    querystring['ZipCode'] = config.zip_code;
-    querystring['State'] = config.state;
-    options['form'] = querystring;
-  } else if (config.method === 'POST' && config.endpoint === 'complete') {
-    querystring['Id'] = config.id;
-    querystring['Amount'] = config.id;
-    options['form'] = querystring;
-  }
-
-  function cb(error, response, body) {
-    if (error) {
-      return callback(error);
+  const rules = [
+    {
+      param: 'id',
+      rule: 'Cadena de caracteres con el indicador único de pago.',
+      valid: typeof _data.id === 'string'
+    },
+    {
+      param: 'amount',
+      rule: 'Sólo caracteres numéricos y punto (.) como separador decimal.',
+      valid: /[0-9]/.test(_data.amount)
+    },
+    {
+      param: 'description',
+      rule: 'Cadena de caracteres con los detalles de la operación.',
+      valid: typeof _data.description === 'string'
+    },
+    {
+      param: 'cardholder',
+      rule: 'Sólo caracteres alfabéticos, incluyendo la letra ñ y espacio.',
+      valid: /^[ñA-Za-z\s]*$/.test(_data.cardholder)
+    },
+    {
+      param: 'cardholderid',
+      rule: 'Sólo caracteres numéricos; mínimo 6 dígitos y máximo 8.',
+      valid: /^[0-9]{6,8}$/.test(_data.cardholderid)
+    },
+    {
+      param: 'cardnumber',
+      rule: 'Sólo caracteres numéricos; mínimo 15 dígitos y máximo 16.',
+      valid: /^[0-9]{15,16}$/.test(_data.cardnumber)
+    },
+    {
+      param: 'cvc',
+      rule: 'Sólo caracteres numéricos; deben ser 3 dígitos.',
+      valid: /^[0-9]{3}$/.test(_data.cvc)
+    },
+    {
+      param: 'expirationdate',
+      rule: 'Sólo fechas mayores a la fecha en curso, en formato MM/YYYY.',
+      valid: isCardExpired(_data.expirationdate)
+    },
+    {
+      param: 'statusid',
+      rule: 'Sólo caracteres numéricos; debe ser 1 dígito.',
+      valid: /^[1-2]{1}$/.test(_data.statusid)
+    },
+    {
+      param: 'ip',
+      rule: 'Dirección IP del cliente que genera la solicitud del pago.',
+      valid: typeof _data.description === 'string'
     }
-
-    if (response.statusCode !== 200) {
-      return callback(body);
-    }
-
-    return callback(null, body);
-  }
-
-  request(options, cb);
-}
-
-function check(obj, callback) {
-  const requiredParams = [
-    'amount',
-    'description',
-    'card_holder',
-    'card_holder_id',
-    'card_number',
-    'cvc',
-    'expiration_date',
-    'status_id',
-    'ip'
   ];
-  let missedParam;
+  let requiredParams = ['id'];
 
-  requiredParams.some(function(param) {
-    if (!obj.hasOwnProperty(param)) {
-      missedParam = param;
+  if (type === 'pay') {
+    requiredParams = [
+      'amount',
+      'description',
+      'cardholder',
+      'cardholderid',
+      'cardnumber',
+      'cvc',
+      'expirationdate',
+      'statusid',
+      'ip'
+    ];
+  } else if (type === 'resume') {
+    requiredParams = ['id', 'amount'];
+  }
 
+  requiredParams.every(param => {
+    const _param = rules.find(rule => rule.param === param);
+
+    if (_data[param] && _param.valid) {
       return true;
     }
+
+    result.error = new Error(`Parámetro inválido (${param}): ${_param.rule}`);
 
     return false;
   });
 
-  return callback(missedParam);
+  return result;
 }
 
-export default Instapago;
+function isCardExpired(date) {
+  const _date = date ? date.split('/') : null;
+
+  if (_date) {
+    const yearOnCard = parseInt(_date[1]);
+    const monthOnCard = parseInt(_date[0]);
+    const year = new Date().getFullYear();
+    const month = new Date().getUTCMonth() + 1;
+
+    return ((yearOnCard === year && monthOnCard >= month) || yearOnCard > year);
+  }
+
+  return false;
+}
+
+export default instapago;

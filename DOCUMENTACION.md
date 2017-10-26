@@ -1,16 +1,17 @@
 <p align="center">
-    <img alt="node-instapago" src="http://i.imgur.com/hYNsH6B.jpg" width="auto">
+    <img alt="node-instapago" src="https://i.imgur.com/VBWxl1h.png" width="500">
 </p>
 <p align="center">
-    Documentación del módulo <b>Instapago</b>
+    Documentación de la librería <b>Instapago</b>
 </p>
 
 ----
 
 ## tabla de contenido
 
+* [acerca de la librería](#acerca-de-la-librería)
 * [instalación](#instalación)
-* [uso del módulo](#uso-del-módulo)
+* [inicialización](#inicialización)
 * [métodos del API](#métodos-del-api)
     * [crear pago](#crear-pago-payconfig-callback)
         * [parámetros requeridos para crear el pago](#parámetros-requeridos-para-crear-el-pago)
@@ -23,120 +24,109 @@
 * [códigos de respuesta](#códigos-de-respuesta)
 * [licencia](#licencia)
 
+## acerca de la librería
+
+Librería Instapago para NodeJS basada en _Promesas_ :zap:
+
 ## instalación
 
 ```bash
 $ npm install instapago --save
 ```
 
-## uso del módulo
+## inicialización
+
+### inicializar instapago `instapago(keyId, publicKeyId[, strictMode])`
+
+Configura la libería con las llaves de acceso a la plataforma **Instapago** e indica si se debe o no validar los datos antes de cada petición.
+
+> **Importante**: Se debe solicitar las llaves `keyId` y `publicKeyId` en la página de Instapago. [Aquí](https://instapago.com/wp-content/uploads/2016/02/Guia-Integracion-API-Instapago-1.6.pdf) puedes encontrar mayor información.
+Además, se recomienda definirlas como variables de entorno para mayor seguridad.
+
+#### argumentos
+
+`keyId` String con la llave **privada** generada desde Instapago.
+
+`publicKeyId` String con la llave compartida enviada por correo electrónico al momento de crear la cuenta en el portal de InstaPago.
+
+`strictMode` _(opcional)_ Boolean que indica si se deben validar los datos de manera estricta antes de realizar una petición a Instapago. Por defecto es `true`.
+
+#### ejemplo
 
 ```js
 // Incluir el módulo en tu proyecto
-import Instapago from 'instapago';
+import instapago from 'instapago';
 
 // Incluir las llaves de acceso al API de Instapago
 const keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-PRIVADA>';
 const publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
 
-// Crear una nueva instancia de Instapago
-const pago = new Instapago(key, publicKey);
-
-// Efectuar un pago
-pago.pay({
-  amount: 500,
-  description: 'Probando el módulo Instapago',
-  card_holder: 'Nombre Apellido',
-  card_holder_id: 12345678,
-  card_number: 4111111111111111,
-  cvc: 123,
-  expiration_date: '10/2017',
-  status_id: 2,
-  ip: '127.0.0.1'
-}, function(err, respuesta) {
-  if (err) {
-    // hacer algo con el error.
-  }
-
-  // hacer algo con la respuesta.
-});
+// Inicializar Instapago
+const i = instapago(keyId, publicKeyId);
 ```
-> **Importante**: Se debe solicitar las llaves `keyId` y `publicKeyId` en la página de Instapago. [Aquí](http://instapago.com/wp-content/uploads/2016/02/Guia-Integracion-API-Instapago-1.6.pdf) puedes encontrar mayor información.
-Además, se recomienda definirlas como variables de entorno para mayor seguridad.
 
 ## métodos del API
 
 A continuación se describen los métodos disponibles en la librería Instapago.
 
-### crear pago `pay(config, callback)`
+### crear pago `pay(config)` :credit_card:
 
-Efectúa un pago con tarjeta de crédito, una vez procesado retornar una respuesta.
+Efectúa un pago con tarjeta de crédito. Una vez procesado, retorna una _Promesa_.
 
 #### argumentos
 
 `config` Objeto con los parámetros requeridos para efectuar un pago.
 
-`callback` Función que será llamada una vez procesado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
+#### parámetros _requeridos_ para crear el pago
 
-#### Parámetros _requeridos_ para crear el pago
-
-* `amount` Monto a Debitar, utilizando punto (.) como separador decimal. Por ejemplo: 200.00
+* `amount` Monto a Debitar, utilizando punto (.) como separador decimal. Por ejemplo: 9999.99
 * `description` Texto con la descripción de la operación.
-* `card_holder` Nombre del Tarjeta habiente.
-* `card_holder_id` Cédula o RIF del Tarjeta habiente.
-* `card_number` Número de la tarjeta de crédito, sin espacios ni
+* `cardholder` Nombre del Tarjeta habiente.
+* `cardholderid` Cédula o RIF del Tarjeta habiente.
+* `cardnumber` Número de la tarjeta de crédito, sin espacios ni
 separadores.
 * `cvc` Código secreto de la Tarjeta de crédito.
-* `expiration_date` Fecha de expiración de la tarjeta en el formato mostrado
-en la misma MM/YYYY. Por Ejemplo: 10/2015.
-* `status_id` Status en el que se creará la transacción.
+* `expirationdate` Fecha de expiración de la tarjeta en el formato mostrado
+en la misma MM/YYYY. Por Ejemplo: 10/2018.
+* `statusid` Status en el que se creará la transacción.
     * 1: Retener (Pre-Autorización).
     * 2: Pagar (Autorización).
 * `ip` Dirección IP del cliente.
 
-#### Parámetros _opcionales_ para crear el pago
+#### parámetros _opcionales_ para crear el pago
 
-* `order_number` Número de orden del pago según el comercio.
+* `ordernumber` Número de orden del pago según el comercio.
 * `address` Dirección asociada a la tarjeta. Utilizada por algunos bancos para mayor seguridad.
 * `city` Ciudad asociada a la tarjeta. Utilizada por algunos bancos para mayor seguridad.
-* `zip_code` Código Postal asociada a la tarjeta. Utilizado por algunos bancos para mayor seguridad.
+* `zipcode` Código Postal asociada a la tarjeta. Utilizado por algunos bancos para mayor seguridad.
 * `state` Estado o provincia asociada a la tarjeta. Utilizado por algunos bancos para mayor seguridad.
 
-#### Ejemplo
-
-Ejemplo.js
+#### ejemplo
 
 ```js
-import Instapago from 'instapago';
+// ...
 
-const keyId = process.env.INSTAPAGO_KEYID || '<LLAVE-PRIVADA>';
-const publicKeyId = process.env.INSTAPAGO_PUBLICKEYID || '<LLAVE-PUBLICA>';
-const pago = new Instapago(key, publicKey);
-
-pago.pay({
-  amount: 37800,
+// Crear pago
+i.pay({
+  amount: 2500000,
   description: 'Calzados de tacón alto',
-  card_holder: 'Mónica Márquez',
-  card_holder_id: 12345678,
-  card_number: 4111111111111111,
+  cardholder: 'Mónica Márquez',
+  cardholderid: 12345678,
+  cardnumber: 4111111111111111,
   cvc: 123,
-  expiration_date: '10/2017',
-  status_id: 2,
+  expirationdate: '10/2018',
+  statusid: 2,
   ip: '127.0.0.1',
-  order_number: 123456,
+  ordernumber: 123456,
   address: 'calle 1, edificio 2, apartamento 3',
   city: 'Maracaibo',
-  zip_code: 4002,
+  zipcode: 4002,
   state: 'Zulia'
-}, function(err, respuesta) {
-  if (err) {
-    return console.log(err);
-  }
-
-  console.log(respuesta);
-});
+}).then(respuesta => {
+  console.log(respuesta.data);
+}).catch(error => console.error(error));
 ```
-Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+Si la operación fue procesada satisfactoriamente, se obtendrá un resultado como el siguiente:
 
 ```json
 {
@@ -155,9 +145,9 @@ Una vez procesada la operación satisfactoriamente, se obtiene un resultado como
 }
 ```
 
-### continuar pago `completePayment(config, callback)`
+### continuar pago `resume(config)` :money_with_wings:
 
-Continúa un pago **Retenido** o **Pre-Aprobado**, una vez procesado retornar una respuesta.
+Reanuda un pago **Retenido** o **Pre-Aprobado**. Una vez procesado, retorna una _Promesa_.
 
 #### argumentos
 
@@ -166,27 +156,20 @@ Continúa un pago **Retenido** o **Pre-Aprobado**, una vez procesado retornar un
 * `amount` Monto a Debitar, utilizando punto (.) como separador decimal. Por ejemplo: 200.00
 * `id` Identificador único del pago que se desea continuar.
 
-`callback` Función que será llamada una vez procesado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
-
-#### Ejemplo
-
-Ejemplo.js
+#### ejemplo
 
 ```js
 // ...
 
-pago.continuePayment({
-  amount: 37800,
+// Continuar pago
+i.resume({
+  amount: 2500000,
   id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
-}, function(err, respuesta) {
-  if (err) {
-    return console.log(err);
-  }
-
-  console.log(respuesta);
-});
+}).then(respuesta => {
+  console.log(respuesta.data);
+}).catch(error => console.error(error));
 ```
-Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+Si la operación fue procesada satisfactoriamente, se obtendrá un resultado como el siguiente:
 
 ```json
 {
@@ -205,9 +188,9 @@ Una vez procesada la operación satisfactoriamente, se obtiene un resultado como
 }
 ```
 
-### eliminar pago `cancelPayment(config, callback)`
+### cancelar pago `cancel(config)` :x:
 
-Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Una vez procesada la operación, retornar una respuesta.
+Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Una vez procesado, retorna una _Promesa_.
 
 > **Importante**: Actualmente, el API de Instapago no permite utilizar este método en *Modo de Pruebas*; al intentarlo se recibirá un error.
 
@@ -217,26 +200,19 @@ Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Un
 
 * `id` Identificador único del pago que se desea anular.
 
-`callback` Función que será llamada una vez anulado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
-
-#### Ejemplo
-
-Ejemplo.js
+#### ejemplo
 
 ```js
 // ...
 
-pago.cancelPayment({
+// Cancelar pago
+i.cancel({
   id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
-}, function(err, respuesta) {
-  if (err) {
-    return console.log(err);
-  }
-
-  console.log(respuesta);
-});
+}).then(respuesta => {
+  console.log(respuesta.data);
+}).catch(error => console.error(error));
 ```
-Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+Si la operación fue procesada satisfactoriamente, se obtendrá un resultado como el siguiente:
 
 ```json
 {
@@ -255,9 +231,9 @@ Una vez procesada la operación satisfactoriamente, se obtiene un resultado como
 }
 ```
 
-### información del pago `paymentInfo(config, callback)`
+### ver pago `view(config)` :mag:
 
-Consulta información sobre un pago generado anteriormente.
+Consulta información sobre un pago generado anteriormente. Una vez procesado, retorna una _Promesa_.
 
 #### argumentos
 
@@ -265,26 +241,19 @@ Consulta información sobre un pago generado anteriormente.
 
 * `id` Identificador único del pago que se desea consultar.
 
-`callback` Función que será llamada una vez consultado el pago. La misma retorna dos argumentos: **err** y **respuesta**.
-
-#### Ejemplo
-
-Ejemplo.js
+#### ejemplo
 
 ```js
 // ...
 
-pago.paymentInfo({
+// Ver pago
+i.view({
   id: 'c12bd3ff-4e15-6a7c-89e0-1b2d03b4ae56'
-}, function(err, respuesta) {
-  if (err) {
-    return console.log(err);
-  }
-
-  console.log(respuesta);
-});
+}).then(respuesta => {
+  console.log(respuesta.data);
+}).catch(error => console.error(error));
 ```
-Una vez procesada la operación satisfactoriamente, se obtiene un resultado como el siguiente:
+Si la operación fue procesada satisfactoriamente, se obtendrá un resultado como el siguiente:
 
 ```json
 {
@@ -303,7 +272,7 @@ Una vez procesada la operación satisfactoriamente, se obtiene un resultado como
 }
 ```
 
-### ejemplo de voucher
+### voucher de ejemplo
 
 ![voucher](http://i.imgur.com/sE05jmH.png)
 
@@ -324,4 +293,4 @@ enviados y vuelva a intentarlo.
 
 # licencia
 
-Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2016 [Autores de la librería](AUTORES.md)
+Licencia [MIT](http://opensource.org/licenses/MIT) :copyright: 2017 [Autores de la librería](AUTORES.md)
