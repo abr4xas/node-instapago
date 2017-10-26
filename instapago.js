@@ -1,6 +1,8 @@
 'use strict';
 
 import axios from 'axios';
+import querystring from 'querystring';
+import { version } from './package.json';
 
 function instapago(keyId, publicKeyId, strict = true) {
   if (!keyId || !publicKeyId) {
@@ -43,7 +45,13 @@ function processPayment(type, config, data) {
     return axios({
       method,
       url: `https://api.instapago.com/${endpoint}`,
-      params: params
+      data: querystring.stringify(params),
+      params: params,
+      headers: {
+        'User-Agent': `node-instapago/${version}`,
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'application/x-www-form-urlencoded'
+     }
     });
   }
 }
@@ -57,6 +65,11 @@ function validatePaymentData(type, data) {
   });
 
   const rules = [
+    {
+      param: 'id',
+      rule: 'Cadena de caracteres con el indicador único de pago.',
+      valid: typeof _data.id === 'string'
+    },
     {
       param: 'amount',
       rule: 'Sólo caracteres numéricos y punto (.) como separador decimal.',
