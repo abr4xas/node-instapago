@@ -20,7 +20,7 @@
     * [continuar pago](#continuar-pago-completepaymentconfig-callback)
     * [eliminar pago](#eliminar-pago-cancelpaymentconfig-callback)
     * [información del pago](#información-del-pago-paymentinfoconfig-callback)
-* [ejemplo de voucher](#ejemplo-de-voucher)
+* [voucher de ejemplo](#voucher-de-ejemplo)
 * [códigos de respuesta](#códigos-de-respuesta)
 * [licencia](#licencia)
 
@@ -36,7 +36,7 @@ $ npm install instapago --save
 
 ## inicialización
 
-### inicializar instapago `instapago(keyId, publicKeyId[, strictMode])`
+### inicializar instapago `instapago(keyId, publicKeyId[, strictMode])` :rocket:
 
 Configura la libería con las llaves de acceso a la plataforma **Instapago** e indica si se debe o no validar los datos antes de cada petición.
 

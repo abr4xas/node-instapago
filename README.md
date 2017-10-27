@@ -2,7 +2,7 @@
     <img alt="node-instapago" src="https://i.imgur.com/VBWxl1h.png" width="500">
 </p>
 <p align="center">
-    Librería Instapago para NodeJS basada en _Promesas_.
+    Librería Instapago para NodeJS basada en <i>Promesas</i>.
 </p>
 <p align="center">
     <a href="https://www.npmjs.com/package/instapago">
@@ -30,7 +30,7 @@
 $ npm install instapago
 ```
 
-## ejemplo
+## uso
 
 ```js
 import instapago from 'instapago';
