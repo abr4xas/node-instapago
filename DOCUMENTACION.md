@@ -13,13 +13,10 @@
 * [instalación](#instalación)
 * [inicialización](#inicialización)
 * [métodos del API](#métodos-del-api)
-    * [crear pago](#crear-pago-payconfig-callback)
-        * [parámetros requeridos para crear el pago](#parámetros-requeridos-para-crear-el-pago)
-        * [parámetros opcionales para crear el pago](#parámetros-opcionales-para-crear-el-pago)
-        * [ejemplo](#ejemplo)
-    * [continuar pago](#continuar-pago-completepaymentconfig-callback)
-    * [eliminar pago](#eliminar-pago-cancelpaymentconfig-callback)
-    * [información del pago](#información-del-pago-paymentinfoconfig-callback)
+    * [crear pago](#crear-pago)
+    * [continuar pago](#continuar-pago)
+    * [cancelar pago](#cancelar-pago)
+    * [ver pago](#ver-pago)
 * [voucher de ejemplo](#voucher-de-ejemplo)
 * [códigos de respuesta](#códigos-de-respuesta)
 * [licencia](#licencia)
@@ -69,13 +66,13 @@ const i = instapago(keyId, publicKeyId);
 
 A continuación se describen los métodos disponibles en la librería Instapago.
 
-### crear pago `pay(config)` :credit_card:
+### crear pago `pay(data)` :credit_card:
 
 Efectúa un pago con tarjeta de crédito. Una vez procesado, retorna una _Promesa_.
 
 #### argumentos
 
-`config` Objeto con los parámetros requeridos para efectuar un pago.
+`data` Objeto con los parámetros requeridos para efectuar un pago.
 
 #### parámetros _requeridos_ para crear el pago
 
@@ -145,13 +142,13 @@ Si la operación fue procesada satisfactoriamente, se obtendrá un resultado com
 }
 ```
 
-### continuar pago `resume(config)` :money_with_wings:
+### continuar pago `resume(data)` :money_with_wings:
 
 Reanuda un pago **Retenido** o **Pre-Aprobado**. Una vez procesado, retorna una _Promesa_.
 
 #### argumentos
 
-`config` Objeto con los parámetros requeridos para continuar un pago:
+`data` Objeto con los parámetros requeridos para continuar un pago:
 
 * `amount` Monto a Debitar, utilizando punto (.) como separador decimal. Por ejemplo: 200.00
 * `id` Identificador único del pago que se desea continuar.
@@ -188,7 +185,7 @@ Si la operación fue procesada satisfactoriamente, se obtendrá un resultado com
 }
 ```
 
-### cancelar pago `cancel(config)` :x:
+### cancelar pago `cancel(data)` :x:
 
 Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Una vez procesado, retorna una _Promesa_.
 
@@ -196,7 +193,7 @@ Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Un
 
 #### argumentos
 
-`config` Objeto con los parámetros requeridos para anular un pago:
+`data` Objeto con los parámetros requeridos para anular un pago:
 
 * `id` Identificador único del pago que se desea anular.
 
@@ -231,13 +228,13 @@ Si la operación fue procesada satisfactoriamente, se obtendrá un resultado com
 }
 ```
 
-### ver pago `view(config)` :mag:
+### ver pago `view(data)` :mag:
 
 Consulta información sobre un pago generado anteriormente. Una vez procesado, retorna una _Promesa_.
 
 #### argumentos
 
-`config` Objeto con los parámetros requeridos para consultar información sobre un pago:
+`data` Objeto con los parámetros requeridos para consultar información sobre un pago:
 
 * `id` Identificador único del pago que se desea consultar.
 
