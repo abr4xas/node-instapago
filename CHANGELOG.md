@@ -2,6 +2,16 @@
 
 > Todos los cambios significativos en la librería serán registrados en éste documento.
 
+## [0.5.1](https://github.com/abr4xas/node-instapago/tree/v0.5.1) - 2017-10-27
+
+### Cambiado
+
+* Se mejoró la redacción en `README.md` y `DOCUMENTACION.md`.
+
+### Reparado
+
+* Se corrigieron errores en los enlaces de la Tabla de Contenido de `DOCUMENTACION.md`.
+
 ## [0.5.0](https://github.com/abr4xas/node-instapago/tree/v0.5.0) - 2017-10-26
 
 ### Nuevo
