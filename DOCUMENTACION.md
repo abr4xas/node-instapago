@@ -148,7 +148,9 @@ Reanuda un pago **Retenido** o **Pre-Aprobado**. Una vez procesado, retorna una 
 
 #### argumentos
 
-`data` Objeto con los parámetros requeridos para continuar un pago:
+`data` Objeto con los parámetros requeridos para continuar un pago.
+
+#### parámetros _requeridos_ para continuar un pago
 
 * `amount` Monto a Debitar, utilizando punto (.) como separador decimal. Por ejemplo: 200.00
 * `id` Identificador único del pago que se desea continuar.
@@ -193,7 +195,9 @@ Anula un pago, ya sea que el mismo estuviese **Retenido** o **Pre-Aprobado**. Un
 
 #### argumentos
 
-`data` Objeto con los parámetros requeridos para anular un pago:
+`data` Objeto con los parámetros requeridos para anular un pago.
+
+#### parámetros _requeridos_ para cancelar un pago
 
 * `id` Identificador único del pago que se desea anular.
 
@@ -234,7 +238,9 @@ Consulta información sobre un pago generado anteriormente. Una vez procesado, r
 
 #### argumentos
 
-`data` Objeto con los parámetros requeridos para consultar información sobre un pago:
+`data` Objeto con los parámetros requeridos para consultar información sobre un pago.
+
+#### parámetros _requeridos_ para ver un pago
 
 * `id` Identificador único del pago que se desea consultar.
 
