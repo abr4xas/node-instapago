@@ -43,20 +43,22 @@ function processPayment(type, config, data) {
     return new Promise((resolve, reject) => reject(validation.error));
   } else {
     return new Promise((resolve, reject) => {
-      const requestConfig = {
+      const qs = querystring.stringify(params);
+      const request = https.request({
         hostname: 'api.instapago.com',
-        path: `/${endpoint}?${querystring.stringify(params)}`,
+        path: `/${endpoint}?${qs}`,
         method: method,
         headers: {
           'Accept': '*/*',
           'Cache-Control': 'no-cache',
           'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-          'Content-Length': Buffer.byteLength(querystring.stringify(params)),
+          'Content-Length': Buffer.byteLength(qs),
           'User-Agent': `node-instapago/${version}`
         }
-      };
+      });
 
-      const request = https.request(requestConfig, response => {
+      request.on('error', error => reject(error));
+      request.on('response', response => {
         const raw = [];
 
         response.on('data', chunk => raw.push(chunk));
@@ -64,12 +66,11 @@ function processPayment(type, config, data) {
           const _data = Buffer.concat(raw).toString();
           const _meta = response;
 
-          resolve(handleInstapagoResponse(_data, _meta));
+          resolve(handleResponse(_data, _meta));
         });
       });
 
-      request.write(querystring.stringify(params));
-      request.on('error', error => reject(error));
+      request.write(qs);
       request.end();
     });
   }
@@ -168,7 +169,7 @@ function validatePaymentData(type, data) {
   return result;
 }
 
-function handleInstapagoResponse(data, metadata) {
+function handleResponse(data, metadata) {
   const response = {
     statusCode: metadata.statusCode,
     statusMessage: metadata.statusMessage,
