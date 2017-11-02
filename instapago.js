@@ -170,12 +170,10 @@ function validatePaymentData(type, data) {
 
 function handleInstapagoResponse(data, metadata) {
   const response = {
-    data: JSON.parse(data),
-    metadata: {
-      statusCode: metadata.statusCode,
-      statusMessage: metadata.statusMessage,
-      headers: metadata.headers
-    }
+    statusCode: metadata.statusCode,
+    statusMessage: metadata.statusMessage,
+    headers: metadata.headers,
+    data: JSON.parse(data)
   };
 
   switch(response.data.code) {
