@@ -34,9 +34,7 @@
     "url": "https://github.com/abr4xas/node-instapago/issues"
   },
   "homepage": "https://github.com/abr4xas/node-instapago#readme",
-  "dependencies": {
-    "axios": "^0.17.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^0.2.1",
