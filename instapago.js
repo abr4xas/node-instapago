@@ -1,6 +1,6 @@
 'use strict';
 
-import axios from 'axios';
+import https from 'https';
 import querystring from 'querystring';
 import { version } from './package.json';
 
@@ -42,16 +42,38 @@ function processPayment(type, config, data) {
   if (config.strict && validation.error) {
     return new Promise((resolve, reject) => reject(validation.error));
   } else {
-    return axios({
-      method,
-      url: `https://api.instapago.com/${endpoint}`,
-      data: querystring.stringify(params),
-      params: params,
-      headers: {
-        'User-Agent': `node-instapago/${version}`,
-        'Cache-Control': 'no-cache',
-        'Content-Type': 'application/x-www-form-urlencoded'
-     }
+    return new Promise((resolve, reject) => {
+      const requestConfig = {
+        hostname: `api.instapago.com`,
+        path: `/${endpoint}?${querystring.stringify(params)}`,
+        method: method,
+        headers: {
+          'Accept': '*/*',
+          'Cache-Control': 'no-cache',
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+          'Content-Length': Buffer.byteLength(querystring.stringify(params)),
+          'User-Agent': `node-instapago/${version}`
+        }
+      };
+
+      const request = https.request(requestConfig, response => {
+        const raw = [];
+
+        response.on('data', chunk => {
+          raw.push(chunk);
+        });
+
+        response.on('end', () => {
+          const _data = Buffer.concat(raw).toString();
+          const _meta = response;
+
+          resolve(handleInstapagoResponse(_data, _meta));
+        });
+      });
+
+      request.write(querystring.stringify(params));
+      request.on('error', error => reject(error));
+      request.end();
     });
   }
 }
@@ -147,6 +169,51 @@ function validatePaymentData(type, data) {
   });
 
   return result;
+}
+
+function handleInstapagoResponse(data, metadata) {
+  const response = {
+    data: JSON.parse(data),
+    metadata: {
+      statusCode: metadata.statusCode,
+      statusMessage: metadata.statusMessage,
+      headers: metadata.headers
+    }
+  };
+
+  switch(response.data.code) {
+    case '201':
+      response.code = 'PAYMENT_SUCCEED';
+      response.message = 'El pago ha sido procesado satisfactoriamente.';
+      break;
+
+    case '400':
+      response.code = 'PAYMENT_INFO_INVALID';
+      response.message = 'Error al validar los datos enviados.';
+      break;
+
+    case '401':
+      response.code = 'INSTAPAGO_AUTH_ERROR';
+      response.message = 'Ha ocurrido un error con las llaves utilizadas.';
+      break;
+
+    case '403':
+      response.code = 'PAYMENT_FAILED';
+      response.message = 'Pago rechazado por el banco.';
+      break;
+
+    case '500':
+      response.code = 'SOMETHING_WENT_WRONG';
+      response.message = 'Ha ocurrido un error dentro del servidor de Instapago.';
+      break;
+
+    case '503':
+      response.code = 'INSTAPAGO_IS_TEMPORARILY_UNAVAILABLE';
+      response.message = 'Ha ocurrido un error al procesar los parámetros de entrada.';
+      break;
+  }
+
+  return response;
 }
 
 function isCardExpired(date) {
