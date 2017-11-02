@@ -216,8 +216,8 @@ function isCardExpired(date) {
   const _date = date ? date.split('/') : null;
 
   if (_date) {
-    const yearOnCard = parseInt(_date[1]);
-    const monthOnCard = parseInt(_date[0]);
+    const yearOnCard = parseInt(_date[1], 10);
+    const monthOnCard = parseInt(_date[0], 10);
     const year = new Date().getFullYear();
     const month = new Date().getUTCMonth() + 1;
 
