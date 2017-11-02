@@ -44,7 +44,7 @@ function processPayment(type, config, data) {
   } else {
     return new Promise((resolve, reject) => {
       const requestConfig = {
-        hostname: `api.instapago.com`,
+        hostname: 'api.instapago.com',
         path: `/${endpoint}?${querystring.stringify(params)}`,
         method: method,
         headers: {
@@ -59,10 +59,7 @@ function processPayment(type, config, data) {
       const request = https.request(requestConfig, response => {
         const raw = [];
 
-        response.on('data', chunk => {
-          raw.push(chunk);
-        });
-
+        response.on('data', chunk => raw.push(chunk));
         response.on('end', () => {
           const _data = Buffer.concat(raw).toString();
           const _meta = response;
