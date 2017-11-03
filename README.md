@@ -11,9 +11,6 @@
     <a href="https://www.npmjs.com/package/instapago">
         <img alt="descargas" src="https://img.shields.io/npm/dt/instapago.svg?style=flat-square">
     </a>
-    <a href="https://badge.fury.io/js/instapago">
-        <img alt="dependencias" src="https://david-dm.org/abr4xas/node-instapago.svg?style=flat-square">
-    </a>
     <a href="https://www.npmjs.com/package/instapago">
         <img alt="licencia" src="https://img.shields.io/npm/l/venezuela.svg?style=flat-square">
     </a>
