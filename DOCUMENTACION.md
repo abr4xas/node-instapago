@@ -283,11 +283,11 @@ Si la operación fue procesada satisfactoriamente, se obtendrá un resultado com
 
 Para todas las transacciones realizadas bajo el API de Instapago, los códigos HTTP de respuestas corresponden a los siguientes estados:
 
-* ```201```: Pago procesado con éxito.
+* ```201```: Transacción procesada con éxito.
 * ```400```: Error al validar los datos enviados (Adicionalmente se devuelve una cadena de
 caracteres con la descripción del error).
 * ```401```: Error de autenticación, ha ocurrido un error con las llaves utilizadas.
-* ```403```: Pago Rechazado por el banco.
+* ```403```: Transacción rechazada por el banco.
 * ```500```: Ha Ocurrido un error interno dentro del servidor.
 * ```503```: Ha Ocurrido un error al procesar los parámetros de entrada. Revise los datos
 enviados y vuelva a intentarlo.
