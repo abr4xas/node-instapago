@@ -178,12 +178,12 @@ function handleResponse(data, metadata) {
 
   switch(response.data.code) {
     case '201':
-      response.code = 'PAYMENT_SUCCEED';
-      response.message = 'El pago ha sido procesado satisfactoriamente.';
+      response.code = 'TRANSACTION_SUCCEED';
+      response.message = 'La transacción ha sido procesada satisfactoriamente.';
       break;
 
     case '400':
-      response.code = 'PAYMENT_INFO_INVALID';
+      response.code = 'INVALID_PAYMENT_INFO';
       response.message = 'Error al validar los datos enviados.';
       break;
 
@@ -193,8 +193,8 @@ function handleResponse(data, metadata) {
       break;
 
     case '403':
-      response.code = 'PAYMENT_FAILED';
-      response.message = 'Pago rechazado por el banco.';
+      response.code = 'TRANSACTION_FAILED';
+      response.message = 'La transacción ha sido rechazada por el banco.';
       break;
 
     case '500':
