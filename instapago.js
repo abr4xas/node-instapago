@@ -40,7 +40,7 @@ function processPayment(type, config, data) {
   }
 
   if (config.strict && validation.error) {
-    return new Promise((resolve, reject) => reject(validation.error));
+    return new Promise((resolve, reject) => reject(validation));
   } else {
     return new Promise((resolve, reject) => {
       const qs = querystring.stringify(params);
@@ -160,7 +160,9 @@ function validatePaymentData(type, data) {
       return true;
     }
 
-    result.error = new Error(`Parámetro inválido (${param}): ${_param.rule}`);
+    result.error = true;
+    result.code = 'INVALID_PAYMENT_INFO';
+    result.message = `Parámetro "${param}" inválido. ${_param.rule}`;
 
     return false;
   });
