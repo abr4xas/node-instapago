@@ -1,6 +1,6 @@
 {
 	"name": "instapago",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"description": "Librería Instapago para Node.js",
 	"license": "MIT",
 	"author": "Jobsamuel Núñez <jobsamuel.nunez@outlook.com>",
