@@ -277,7 +277,7 @@ Si la operación fue procesada satisfactoriamente, se obtendrá un resultado com
 
 ### voucher de ejemplo
 
-![voucher](http://i.imgur.com/sE05jmH.png)
+![voucher](https://i.ibb.co/n0rSD6V/004.jpg)
 
 ### códigos de respuesta
 
